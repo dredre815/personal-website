@@ -16,12 +16,11 @@ A modern, interactive personal website built with React, featuring a terminal-in
 - React
 - React Router
 - Styled Components
-- Three.js
 - Modern JavaScript (ES6+)
 
 ## Preview
 
-[Live Demo](https://dredre815.github.io/personal-website)
+[Live Demo](https://www.zijun2002.com/)
 
 ## Installation
 
@@ -42,6 +41,6 @@ A modern, interactive personal website built with React, featuring a terminal-in
 
 This project is open source and available under the [MIT License](LICENSE).
 
-Copyright (c) 2024 Zijun Zhang
+Copyright © 2024 Zijun Zhang
 
 Feel free to clone and modify this project for your own personal use. If you do use this project as a template, please give appropriate credit by linking back to this repository and mentioning the original author.
