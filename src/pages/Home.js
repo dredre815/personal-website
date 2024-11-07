@@ -142,18 +142,22 @@ const Home = () => {
   ];
 
   useEffect(() => {
+    setShowContent(false);
     const text = "Hello, I'm Zijun (Marshall) Zhang";
     const scrollHint = "Scroll down to explore 👇";
     let i = 0;
     let j = 0;
     
+    const textElement = textRef.current;
+    const scrollHintElement = scrollHintRef.current;
+    
     const typing = setInterval(() => {
-      if (textRef.current) {
-        textRef.current.textContent = text.slice(0, i);
+      if (textElement) {
+        textElement.textContent = text.slice(0, i);
         i++;
         if (i > text.length) {
-          if (scrollHintRef.current) {
-            scrollHintRef.current.textContent = scrollHint.slice(0, j);
+          if (scrollHintElement) {
+            scrollHintElement.textContent = scrollHint.slice(0, j);
             j++;
             if (j > scrollHint.length) {
               clearInterval(typing);
@@ -164,7 +168,11 @@ const Home = () => {
       }
     }, 30);
 
-    return () => clearInterval(typing);
+    return () => {
+      clearInterval(typing);
+      if (textElement) textElement.textContent = '';
+      if (scrollHintElement) scrollHintElement.textContent = '';
+    };
   }, []);
 
   useEffect(() => {
@@ -234,7 +242,7 @@ const Home = () => {
               href="https://www.linkedin.com/in/zijunzhang2002/"
               className="social-link"
             >
-              <span>💼</span> /connect --professional
+              <span>👤</span> /connect --professional
             </a>
           </div>
         </div>
