@@ -4,10 +4,17 @@ import InteractiveTimeline from '../components/InteractiveTimeline';
 
 const HomeContainer = styled.div`
   .typing-text {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
     white-space: nowrap;
-    overflow: hidden;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      white-space: normal;
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
   }
 
   .scroll-hint {
@@ -58,6 +65,14 @@ const HomeContainer = styled.div`
     display: flex;
     gap: 1.5rem;
     margin-top: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
   }
 
   .social-link {
@@ -67,6 +82,10 @@ const HomeContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
 
     &:hover {
       background: var(--primary);
@@ -95,6 +114,10 @@ const HomeContainer = styled.div`
         var(--primary),
         transparent
       );
+    }
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
     }
   }
 
@@ -186,8 +209,8 @@ const Home = () => {
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: '0px'
+        threshold: window.innerWidth <= 768 ? 0.1 : 0.2,
+        rootMargin: window.innerWidth <= 768 ? '30px' : '0px'
       }
     );
 

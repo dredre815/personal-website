@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const TimelineContainer = styled.div`
   margin: 2rem 0 1rem;
-  padding: 4rem;
+  padding: 4rem 2rem;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   backdrop-filter: blur(10px);
@@ -11,17 +11,11 @@ const TimelineContainer = styled.div`
   overflow: hidden;
   min-height: 1200px;
 
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at top right, rgba(0, 255, 0, 0.05), transparent 50%),
-      radial-gradient(circle at bottom left, rgba(0, 255, 255, 0.05), transparent 50%);
-    pointer-events: none;
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -38,6 +32,10 @@ const TimelinePath = styled.div`
     transparent
   );
   transform: translateX(-50%);
+
+  @media (max-width: 768px) {
+    left: 20px;
+  }
 `;
 
 const TimelineEvent = styled.div`
@@ -59,6 +57,14 @@ const TimelineEvent = styled.div`
     border-color: var(--primary);
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
   }
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: 40px;
+    width: calc(100% - 60px);
+    margin: 2rem 0;
+    top: auto !important;
+  }
 `;
 
 const EventDot = styled.div`
@@ -75,6 +81,15 @@ const EventDot = styled.div`
 
   &:hover {
     transform: translate(-50%, 50%) scale(1.2);
+    box-shadow: 0 0 30px var(--primary);
+  }
+
+  @media (max-width: 768px) {
+    left: 20px;
+    
+    &:hover {
+      transform: translate(-50%, 50%) scale(1.2);
+    }
   }
 `;
 
@@ -99,6 +114,10 @@ const EventDate = styled.span`
   background: rgba(0, 0, 0, 0.5);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
+
+  @media (max-width: 768px) {
+    left: 1rem;
+  }
 `;
 
 const InteractiveTimeline = () => {
@@ -172,7 +191,10 @@ const InteractiveTimeline = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { 
+        threshold: window.innerWidth <= 768 ? 0.1 : 0.5,
+        rootMargin: window.innerWidth <= 768 ? '50px' : '0px'
+      }
     );
 
     document.querySelectorAll('[data-id]').forEach(el => observer.observe(el));
@@ -188,13 +210,19 @@ const InteractiveTimeline = () => {
             side={event.side}
             active={activeEvents.includes(event.id)}
             data-id={event.id}
-            style={{ top: `${(index * 11)}%` }}
+            style={{ 
+              ...(window.innerWidth > 768 && { top: `${index * 11}%` })
+            }}
           >
             <EventDate side={event.side}>{event.date}</EventDate>
             <EventTitle>{event.title}</EventTitle>
             <EventContent>{event.content}</EventContent>
           </TimelineEvent>
-          <EventDot style={{ top: `${(index * 10.8)}%` }} />
+          <EventDot 
+            style={{ 
+              ...(window.innerWidth > 768 && { top: `${index * 10.8}%` })
+            }} 
+          />
         </div>
       ))}
     </TimelineContainer>
