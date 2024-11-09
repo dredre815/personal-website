@@ -18,10 +18,12 @@ const ProjectCard = styled.div`
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-
+  backdrop-filter: blur(5px);
+  
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
   }
 
   &:before {
@@ -33,6 +35,39 @@ const ProjectCard = styled.div`
     height: 4px;
     background: linear-gradient(to right, var(--primary), transparent);
   }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 255, 0, 0.05),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: scan 10s linear infinite;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover:after {
+    opacity: 1;
+  }
+
+  @keyframes scan {
+    from {
+      transform: translateY(-50%) rotate(45deg);
+    }
+    to {
+      transform: translateY(50%) rotate(45deg);
+    }
+  }
 `;
 
 const ProjectTitle = styled.h3`
@@ -40,6 +75,23 @@ const ProjectTitle = styled.h3`
   font-size: 1.8rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
+  position: relative;
+  display: inline-block;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  ${ProjectCard}:hover &:after {
+    width: 100%;
+  }
 `;
 
 const ProjectDescription = styled.p`
@@ -62,6 +114,23 @@ const Tag = styled.span`
   border: 1px solid var(--primary);
   border-radius: 4px;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--primary);
+    color: var(--background);
+    transform: translateY(-2px);
+  }
+`;
+
+const ProjectCounter = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  opacity: 0.5;
+  font-size: 0.9rem;
 `;
 
 const DetailsButton = styled.button`
@@ -72,10 +141,29 @@ const DetailsButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--primary);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: -1;
+  }
 
   &:hover {
-    background: var(--primary);
     color: var(--background);
+    &:before {
+      width: 300%;
+      height: 300%;
+    }
   }
 `;
 
@@ -127,6 +215,8 @@ const Projects = () => {
     melbourneDashboard: false
   });
 
+  const totalProjects = Object.keys(openDetails).length;
+
   const toggleDetails = (project) => {
     setOpenDetails(prev => ({
       ...prev,
@@ -137,6 +227,7 @@ const Projects = () => {
   return (
     <ProjectsContainer>
       <ProjectCard>
+        <ProjectCounter>Project {1}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Melbourne Urban Mobility Dashboard</ProjectTitle>
         <ProjectDescription>
           An interactive R Shiny dashboard providing comprehensive insights into Melbourne's urban mobility patterns, featuring real-time updates on pedestrian traffic, public transport utilization, and road safety analytics through intuitive visualizations.
@@ -193,6 +284,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {2}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Lyonville Community Website</ProjectTitle>
         <ProjectDescription>
           A modern, responsive community website for the town of Lyonville in Victoria, Australia. Features comprehensive information about local events, history, and community resources with an emphasis on user engagement and cultural preservation.
@@ -249,6 +341,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {3}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Splendor AI Agent</ProjectTitle>
         <ProjectDescription>
           An advanced AI agent for the board game Splendor using Monte Carlo Tree Search (MCTS) with heuristic-guided action selection. Features sophisticated decision-making strategies and efficient resource management.
@@ -305,6 +398,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {4}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Collaborative Whiteboard Application</ProjectTitle>
         <ProjectDescription>
           A Java-based collaborative whiteboard application enabling real-time multi-user drawing and interaction. Features a comprehensive set of drawing tools, user management system, and file operations within a client-server architecture.
@@ -361,6 +455,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {5}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Dictionary Client-Server Application</ProjectTitle>
         <ProjectDescription>
           A Java-based dictionary application implementing a client-server architecture that allows users to query, add, remove, and update word definitions through a graphical user interface with multi-threaded server capabilities.
@@ -417,6 +512,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {6}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Custom RPC System</ProjectTitle>
         <ProjectDescription>
           A sophisticated Remote Procedure Call (RPC) system implemented in C that enables distributed computing across multiple machines. Features a client-server architecture with support for non-blocking operations and robust error handling.
@@ -473,6 +569,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {7}/{totalProjects}</ProjectCounter>
         <ProjectTitle>Process Management Simulator</ProjectTitle>
         <ProjectDescription>
           A sophisticated process management system that simulates CPU scheduling and memory allocation, supporting both simulated and real process management with various scheduling algorithms and memory allocation strategies.
@@ -529,6 +626,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {8}/{totalProjects}</ProjectCounter>
         <ProjectTitle>PacMan TorusVerse</ProjectTitle>
         <ProjectDescription>
           An innovative adaptation of the classic PacMan game that combines traditional gameplay elements with new features like portals and multi-level progression, featuring both a game engine and a custom map editor.
@@ -585,6 +683,7 @@ const Projects = () => {
       </ProjectCard>
 
       <ProjectCard>
+        <ProjectCounter>Project {9}/{totalProjects}</ProjectCounter>
         <ProjectTitle>ShadowDimension</ProjectTitle>
         <ProjectDescription>
           A 2D fantasy role-playing game where players control Fae, a character on a mission to save her father and hometown from evil creatures from another dimension.
