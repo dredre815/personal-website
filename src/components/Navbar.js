@@ -112,26 +112,50 @@ const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Nav>
-      <Logo to="/">Zijun Zhang</Logo>
+      <Logo to="/" onClick={closeMenu}>Zijun Zhang</Logo>
       <MenuButton onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? '×' : '☰'}
       </MenuButton>
       <NavLinks isOpen={isOpen}>
-        <NavLink to="/" className={location.pathname === '/' ? 'active' : ''}>
+        <NavLink 
+          to="/" 
+          className={location.pathname === '/' ? 'active' : ''} 
+          onClick={closeMenu}
+        >
           Home
         </NavLink>
-        <NavLink to="/research" className={location.pathname === '/research' ? 'active' : ''}>
+        <NavLink 
+          to="/research" 
+          className={location.pathname === '/research' ? 'active' : ''} 
+          onClick={closeMenu}
+        >
           Research
         </NavLink>
-        <NavLink to="/projects" className={location.pathname === '/projects' ? 'active' : ''}>
+        <NavLink 
+          to="/projects" 
+          className={location.pathname === '/projects' ? 'active' : ''} 
+          onClick={closeMenu}
+        >
           Projects
         </NavLink>
-        <NavLink to="/cv" className={location.pathname === '/cv' ? 'active' : ''}>
+        <NavLink 
+          to="/cv" 
+          className={location.pathname === '/cv' ? 'active' : ''} 
+          onClick={closeMenu}
+        >
           CV
         </NavLink>
-        <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''}>
+        <NavLink 
+          to="/blog" 
+          className={location.pathname === '/blog' ? 'active' : ''} 
+          onClick={closeMenu}
+        >
           Blog
         </NavLink>
       </NavLinks>
