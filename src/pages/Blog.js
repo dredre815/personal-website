@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 const BlogContainer = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   
@@ -14,22 +14,62 @@ const BlogContainer = styled.div`
 `;
 
 const BlogCard = styled.div`
-  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
   border: 1px solid var(--primary);
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(5px);
-  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
   
   &:hover {
-    transform: translateX(10px);
-    background: rgba(0, 255, 0, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
   }
-  
-  @media (max-width: 768px) {
-    padding: 1rem;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), transparent);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 255, 0, 0.05),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: scan 10s linear infinite;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover:after {
+    opacity: 1;
+  }
+
+  @keyframes scan {
+    from {
+      transform: translateY(-50%) rotate(45deg);
+    }
+    to {
+      transform: translateY(50%) rotate(45deg);
+    }
   }
 `;
 
@@ -94,38 +134,35 @@ const BlogTitle = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
+  position: relative;
+  display: inline-block;
   
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  ${BlogCard}:hover &:after {
+    width: 100%;
+  }
+
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
 `;
 
-const ReadingTime = styled.div`
-  color: var(--primary);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  font-style: italic;
-`;
-
 const BlogDate = styled.div`
   color: var(--primary);
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-`;
-
-const BackButton = styled.button`
-  background: none;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--primary);
-    color: var(--background);
-  }
+  margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
+  opacity: 0.8;
 `;
 
 const BlogExcerpt = styled.p`
@@ -141,6 +178,92 @@ const ReadMoreLink = styled.div`
   
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const Header = styled.div`
+  margin-bottom: 3rem;
+  
+  h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+    
+    &:before {
+      content: '$ ls ~/blog/';
+      display: block;
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  
+  .subtitle {
+    color: #ccc;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+  }
+`;
+
+const BackButton = styled.button`
+  background: none;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:hover {
+    background: var(--primary);
+    color: var(--background);
+    transform: translateX(-5px);
+  }
+`;
+
+const ReadingTime = styled.span`
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:before {
+    content: '⏱️';
+  }
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+`;
+
+const Tag = styled.span`
+  background: rgba(0, 255, 0, 0.1);
+  color: var(--primary);
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--primary);
+    color: var(--background);
+    transform: translateY(-2px);
   }
 `;
 
@@ -178,7 +301,11 @@ const Blog = () => {
         <BlogPost>
           <BlogTitle>{selectedBlog.title}</BlogTitle>
           <BlogDate>{selectedBlog.date}</BlogDate>
-          <ReadingTime>{selectedBlog.readingTime} min read</ReadingTime>
+          <TagContainer>
+            <Tag>Bitcoin</Tag>
+            <Tag>Blockchain</Tag>
+            <Tag>Cryptocurrency</Tag>
+          </TagContainer>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{blogContent}</ReactMarkdown>
         </BlogPost>
       </BlogContainer>
@@ -187,8 +314,14 @@ const Blog = () => {
 
   return (
     <BlogContainer>
-      <BlogTitle>Blog Posts</BlogTitle>
-      {blogs.map(blog => (
+      <Header>
+        <h1>Blog</h1>
+        <div className="subtitle">
+          ✨ Random thoughts from a programmer who talks to computers more than
+          humans 💻
+        </div>
+      </Header>
+      {blogs.map((blog) => (
         <BlogCard key={blog.id} onClick={() => setSelectedBlog(blog)}>
           <BlogDate>{blog.date}</BlogDate>
           <BlogTitle>{blog.title}</BlogTitle>

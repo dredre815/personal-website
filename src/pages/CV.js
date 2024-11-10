@@ -12,12 +12,7 @@ const CVContainer = styled.div`
 `;
 
 const CVHeader = styled.div`
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid var(--primary);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
+  margin-bottom: 3rem;
   
   h1 {
     color: var(--primary);
@@ -25,21 +20,23 @@ const CVHeader = styled.div`
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
     
+    &:before {
+      content: '$ cat ~/cv/';
+      display: block;
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    
     @media (max-width: 768px) {
       font-size: 2rem;
     }
   }
-`;
-
-const TerminalText = styled.p`
-  color: #ccc;
-  line-height: 1.6;
-  margin-bottom: 1rem;
   
-  &::before {
-    content: '>';
-    color: var(--primary);
-    margin-right: 0.5rem;
+  .subtitle {
+    color: #ccc;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
   }
 `;
 
@@ -177,24 +174,24 @@ const CV = () => {
     <CVContainer>
       <CVHeader>
         <h1>Curriculum Vitae</h1>
-        <TerminalText>
-          Welcome to my digital portfolio. Feel free to preview or download my CV.
-        </TerminalText>
-        <TerminalText>
+        <div className="subtitle">
+          📄 The story of how I turned caffeine into software solutions!
+          <br />
+          <br />
           Last updated: {new Date().toLocaleDateString()}
-        </TerminalText>
+        </div>
         <ButtonContainer>
           <ActionButton href="/CV.pdf" download>
             <span>⬇️</span>
-            <span style={{ width: 'auto' }}>Download CV</span>
+            <span style={{ width: "auto" }}>Download CV</span>
           </ActionButton>
           <ActionButton href="/CV.pdf" target="_blank">
             <span>🔍</span>
-            <span style={{ width: 'auto' }}>View Full Screen</span>
+            <span style={{ width: "auto" }}>View Full Screen</span>
           </ActionButton>
         </ButtonContainer>
       </CVHeader>
-      
+
       <PreviewContainer>
         <div className="title-bar">CV.pdf - Preview</div>
         {isLoading ? (
