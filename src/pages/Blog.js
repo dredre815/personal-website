@@ -275,7 +275,7 @@ const Blog = () => {
     {
       id: 1,
       title: "What is Bitcoin?",
-      date: "9 November 2024",
+      date: "9/11/2024",
       excerpt:
         "An exploration of how Bitcoin and blockchain technology are reshaping our understanding of financial systems and trust in the digital age.",
       readingTime: 5,

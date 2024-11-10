@@ -126,49 +126,49 @@ const InteractiveTimeline = () => {
   const events = [
     {
       id: 1,
-      date: 'Mar 2021',
+      date: 'March 2021',
       title: 'Started University Journey',
       content: 'Enrolled in Bachelor of Science at the University of Melbourne, majoring in Computing and Software Systems.',
       side: 'left'
     },
     {
       id: 2,
-      date: 'Jun 2022',
+      date: 'June 2022',
       title: 'Blockchain Enlightenment',
       content: 'First exposure to blockchain technology through reading the Bitcoin whitepaper, which sparked my interest in decentralized systems.',
       side: 'right'
     },
     {
       id: 3,
-      date: 'Dec 2022',
+      date: 'December 2022',
       title: 'First Industry Experience',
       content: 'Joined ICBC Melbourne Branch as an Information Security intern, gaining practical experience in banking security.',
       side: 'left'
     },
     {
       id: 4,
-      date: 'Oct 2023',
+      date: 'October 2023',
       title: 'First Full-Stack Project',
       content: 'Developed and deployed a comprehensive website for the Lyonville region of Victoria, marking my first full-stack development project.',
       side: 'right'
     },
     {
       id: 5,
-      date: 'Mar 2024',
+      date: 'March 2024',
       title: 'Academic Milestone',
       content: 'Completed Bachelor\'s degree and continued the academic journey by enrolling in Master of Computer Science at the University of Melbourne.',
       side: 'left'
     },
     {
       id: 6,
-      date: 'Jul 2024',
+      date: 'July 2024',
       title: 'Blockchain Security Focus',
       content: 'Started blockchain development journey with WTF Academy while simultaneously studying blockchain security with SlowMist.',
       side: 'right'
     },
     {
       id: 7,
-      date: 'Sep 2024',
+      date: 'September 2024',
       title: 'AI Security Research',
       content: 'Began specializing in AI for Security, with a particular focus on adversarial machine learning.',
       side: 'left'

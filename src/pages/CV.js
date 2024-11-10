@@ -178,7 +178,7 @@ const CV = () => {
           📄 The story of how I turned caffeine into software solutions!
           <br />
           <br />
-          Last updated: {new Date().toLocaleDateString()}
+          Last updated: 10/11/2024
         </div>
         <ButtonContainer>
           <ActionButton href="/CV.pdf" download>
