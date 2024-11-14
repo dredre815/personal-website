@@ -59,7 +59,7 @@ const QuoteSection = styled(FooterSection)`
       color: var(--primary);
       font-size: 1.5rem;
       position: absolute;
-      left: 0.5rem;
+      left: 0.2rem;
       top: 0.5rem;
     }
     

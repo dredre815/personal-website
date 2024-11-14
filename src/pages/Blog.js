@@ -267,18 +267,37 @@ const Tag = styled.span`
   }
 `;
 
+const BlogGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
+`;
+
 const Blog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogContent, setBlogContent] = useState('');
   
   const blogs = [
     {
+      id: 2,
+      title: "What is Ethereum?",
+      date: "14/11/2024",
+      excerpt: 
+        "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
+      readingTime: 8,
+      filename: "blog2.md",
+    },
+    {
       id: 1,
       title: "What is Bitcoin?",
       date: "9/11/2024",
       excerpt:
-        "An exploration of how Bitcoin and blockchain technology are reshaping our understanding of financial systems and trust in the digital age.",
-      readingTime: 5,
+        "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
+      readingTime: 6,
       filename: "blog1.md",
     },
   ];
@@ -293,6 +312,23 @@ const Blog = () => {
   }, [selectedBlog]);
 
   if (selectedBlog) {
+    const blogTags = {
+      1: [ // Bitcoin blog
+        "Bitcoin",
+        "Blockchain",
+        "Digital Currency",
+        "Peer-to-Peer",
+        "Mining"
+      ],
+      2: [ // Ethereum blog
+        "Ethereum",
+        "Smart Contracts",
+        "DeFi",
+        "NFTs",
+        "DAOs"
+      ]
+    };
+
     return (
       <BlogContainer>
         <BackButton onClick={() => setSelectedBlog(null)}>
@@ -302,9 +338,9 @@ const Blog = () => {
           <BlogTitle>{selectedBlog.title}</BlogTitle>
           <BlogDate>{selectedBlog.date}</BlogDate>
           <TagContainer>
-            <Tag>Bitcoin</Tag>
-            <Tag>Blockchain</Tag>
-            <Tag>Cryptocurrency</Tag>
+            {blogTags[selectedBlog.id].map((tag, index) => (
+              <Tag key={index}>{tag}</Tag>
+            ))}
           </TagContainer>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{blogContent}</ReactMarkdown>
         </BlogPost>
@@ -321,15 +357,17 @@ const Blog = () => {
           humans 💻
         </div>
       </Header>
-      {blogs.map((blog) => (
-        <BlogCard key={blog.id} onClick={() => setSelectedBlog(blog)}>
-          <BlogDate>{blog.date}</BlogDate>
-          <BlogTitle>{blog.title}</BlogTitle>
-          <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
-          <ReadingTime>{blog.readingTime} min read</ReadingTime>
-          <ReadMoreLink>Read More →</ReadMoreLink>
-        </BlogCard>
-      ))}
+      <BlogGrid>
+        {blogs.map((blog) => (
+          <BlogCard key={blog.id} onClick={() => setSelectedBlog(blog)}>
+            <BlogDate>{blog.date}</BlogDate>
+            <BlogTitle>{blog.title}</BlogTitle>
+            <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
+            <ReadingTime>{blog.readingTime} min read</ReadingTime>
+            <ReadMoreLink>Read More →</ReadMoreLink>
+          </BlogCard>
+        ))}
+      </BlogGrid>
     </BlogContainer>
   );
 };
