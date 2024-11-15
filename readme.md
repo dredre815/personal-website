@@ -1,33 +1,78 @@
 # Personal Website
 
-A modern, interactive personal website built with React, featuring a terminal-inspired design with a green-on-black color scheme. The website includes sections for personal information, research interests, projects, CV, and blog posts.
+A sophisticated, interactive personal website built with React, featuring a terminal-inspired design with a matrix-style green-on-black color scheme. This portfolio showcases my professional journey, projects, research, and blog posts through an engaging user interface.
 
 ## Features
 
-- 🎨 Clean, minimalist design with terminal/matrix-inspired aesthetics
+### Core Features
+- 🎨 Matrix-inspired design with terminal aesthetics and dynamic animations
 - ⚡ Interactive timeline showing personal/professional journey
-- 🌟 Smooth animations and transitions
-- 📱 Responsive layout
+- 🌟 Smooth scroll animations and transitions
+- 📱 Fully responsive layout for all devices
 - 💻 Terminal-style navigation and UI elements
-- 🎯 Sections for Research, Projects, CV, and Blog
+- 🎯 Comprehensive sections for Projects, Research, Blog, and CV
+
+### Project Showcase
+- 📂 Detailed project cards with expandable sections
+- 🏷️ Interactive tags and categories
+- 🔄 Animated hover effects and transitions
+- 📊 Project counter and status indicators
+
+### Research Section
+- 🔬 Active research project tracking
+- 📈 Research progress indicators
+- 🏷️ Technical tag categorization
+- 📑 Detailed methodology breakdowns
+
+### Blog System
+- ✍️ Markdown-supported blog posts
+- 🏷️ Tag-based categorization
+- ⏱️ Reading time estimates
+- 📱 Responsive blog layout
+
+### CV Section
+- 📄 PDF preview integration
+- ⬇️ Direct CV download option
+- 🔍 Full-screen view capability
+- 📱 Mobile-friendly display
 
 ## Tech Stack
 
-- React
-- React Router
-- Styled Components
-- Modern JavaScript (ES6+)
-
-## Preview
-
-[Live Demo](https://www.zijun2002.com/)
+- **Frontend Framework:** React 18
+- **Styling:** Styled Components
+- **Routing:** React Router v6
+- **Content:** React Markdown with GFM support
+- **Development:** Modern JavaScript (ES6+)
+- **Deployment:** GitHub Pages
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/dredre815/personal-website.git`
-2. Navigate to the project directory: `cd personal-website`
-3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
+1. Clone the repository:
+```bash
+git clone https://github.com/dredre815/personal-website.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd personal-website
+```
+
+3. Install dependencies:
+```bash
+npm install
+```
+
+4. Start the development server:
+```bash
+npm start
+```
+
+## Project Structure
+
+- `/src/pages/` - Main page components (Home, Projects, Research, Blog, CV)
+- `/src/components/` - Reusable UI components
+- `/public/` - Static assets and blog content
+- `/src/styles/` - Global styles and theme configuration
 
 ## Author
 
