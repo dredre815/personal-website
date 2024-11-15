@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -211,22 +211,31 @@ const Header = styled.div`
 `;
 
 const BackButton = styled.button`
-  background: none;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(0, 0, 0, 0.8);
   border: 1px solid var(--primary);
   color: var(--primary);
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
-  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  backdrop-filter: blur(5px);
+  z-index: 100;
   
   &:hover {
     background: var(--primary);
     color: var(--background);
-    transform: translateX(-5px);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    right: 1rem;
   }
 `;
 
@@ -280,6 +289,7 @@ const BlogGrid = styled.div`
 const Blog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogContent, setBlogContent] = useState('');
+  const blogRefs = useRef({});
   
   const blogs = [
     {
@@ -311,6 +321,18 @@ const Blog = () => {
     }
   }, [selectedBlog]);
 
+  const handleBack = (blogId) => {
+    setSelectedBlog(null);
+    setTimeout(() => {
+      if (blogRefs.current[blogId]) {
+        blogRefs.current[blogId].scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    }, 0);
+  };
+
   if (selectedBlog) {
     const blogTags = {
       1: [ // Bitcoin blog
@@ -331,7 +353,7 @@ const Blog = () => {
 
     return (
       <BlogContainer>
-        <BackButton onClick={() => setSelectedBlog(null)}>
+        <BackButton onClick={() => handleBack(selectedBlog.id)}>
           ← Back to Blogs
         </BackButton>
         <BlogPost>
@@ -359,7 +381,11 @@ const Blog = () => {
       </Header>
       <BlogGrid>
         {blogs.map((blog) => (
-          <BlogCard key={blog.id} onClick={() => setSelectedBlog(blog)}>
+          <BlogCard 
+            key={blog.id} 
+            onClick={() => setSelectedBlog(blog)}
+            ref={el => blogRefs.current[blog.id] = el}
+          >
             <BlogDate>{blog.date}</BlogDate>
             <BlogTitle>{blog.title}</BlogTitle>
             <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
