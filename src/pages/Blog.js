@@ -293,12 +293,21 @@ const Blog = () => {
   
   const blogs = [
     {
+      id: 3,
+      title: "LLMs in Blockchain Security: A Deep Dive",
+      date: "17/11/2024",
+      excerpt: 
+        "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
+      readingTime: 12,
+      filename: "blog3.md",
+    },
+    {
       id: 2,
       title: "What is Ethereum?",
       date: "14/11/2024",
       excerpt: 
         "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
-      readingTime: 8,
+      readingTime: 10,
       filename: "blog2.md",
     },
     {
@@ -307,7 +316,7 @@ const Blog = () => {
       date: "9/11/2024",
       excerpt:
         "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
-      readingTime: 6,
+      readingTime: 8,
       filename: "blog1.md",
     },
   ];
@@ -335,20 +344,30 @@ const Blog = () => {
 
   if (selectedBlog) {
     const blogTags = {
-      1: [ // Bitcoin blog
-        "Bitcoin",
-        "Blockchain",
-        "Digital Currency",
-        "Peer-to-Peer",
-        "Mining"
+      3: [
+        // LLMs & Blockchain Security blog
+        "Blockchain Security",
+        "LLMs",
+        "Smart Contracts",
+        "AI in Blockchain",
+        "DeFi",
       ],
-      2: [ // Ethereum blog
+      2: [
+        // Ethereum blog
         "Ethereum",
         "Smart Contracts",
         "DeFi",
         "NFTs",
-        "DAOs"
-      ]
+        "DAOs",
+      ],
+      1: [
+        // Bitcoin blog
+        "Bitcoin",
+        "Blockchain",
+        "Digital Currency",
+        "Peer-to-Peer",
+        "Mining",
+      ],
     };
 
     return (
