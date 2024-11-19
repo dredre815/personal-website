@@ -244,6 +244,7 @@ const ProjectLink = styled.a`
 
 const Projects = () => {
   const [openDetails, setOpenDetails] = useState({
+    interviewCopilot: false,
     shadowDimension: false,
     pacmanTorusVerse: false,
     processManagement: false,
@@ -278,6 +279,73 @@ const Projects = () => {
         <ProjectCard>
           <ProjectCounter>
             Project {1}/{totalProjects}
+          </ProjectCounter>
+          <ProjectTitle>Interview Copilot</ProjectTitle>
+          <ProjectDescription>
+            A browser-based application that enhances interview experiences through real-time 
+            transcription and AI assistance. Features speech-to-text conversion and ChatGPT 
+            integration for intelligent response formulation.
+          </ProjectDescription>
+
+          <TagContainer>
+            <Tag>React</Tag>
+            <Tag>AI</Tag>
+            <Tag>WebSocket</Tag>
+            <Tag>Speech-to-Text</Tag>
+            <Tag>ChatGPT</Tag>
+          </TagContainer>
+
+          <DetailsButton onClick={() => toggleDetails("interviewCopilot")}>
+            {openDetails.interviewCopilot ? "< Less Details />" : "< More Details />"}
+          </DetailsButton>
+
+          <ProjectDetails isOpen={openDetails.interviewCopilot}>
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Key Features:
+            </h4>
+            <FeatureList>
+              <li>Real-time speech-to-text transcription from any audio source</li>
+              <li>AI-powered interview assistance using ChatGPT</li>
+              <li>Cross-platform support with responsive design</li>
+              <li>Serverless architecture with local storage</li>
+              <li>Dark/Light theme support</li>
+            </FeatureList>
+
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Technical Implementation:
+            </h4>
+            <FeatureList>
+              <li>React.js with custom UI components</li>
+              <li>WebSocket integration for real-time communication</li>
+              <li>Deepgram API for speech recognition</li>
+              <li>OpenAI GPT-4 for AI responses</li>
+              <li>Local Storage API for secure key management</li>
+            </FeatureList>
+
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Use Cases:
+            </h4>
+            <FeatureList>
+              <li>Online job interviews</li>
+              <li>Academic interviews and business meetings</li>
+              <li>Language assistance during conversations</li>
+              <li>Real-time meeting transcription</li>
+              <li>Interview preparation and practice</li>
+            </FeatureList>
+
+            <ProjectLink
+              href="https://github.com/dredre815/Interview-Copilot"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub →
+            </ProjectLink>
+          </ProjectDetails>
+        </ProjectCard>
+
+        <ProjectCard>
+          <ProjectCounter>
+            Project {2}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Melbourne Urban Mobility Dashboard</ProjectTitle>
           <ProjectDescription>
@@ -347,7 +415,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {2}/{totalProjects}
+            Project {3}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Lyonville Community Website</ProjectTitle>
           <ProjectDescription>
@@ -417,7 +485,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {3}/{totalProjects}
+            Project {4}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Splendor AI Agent</ProjectTitle>
           <ProjectDescription>
@@ -485,7 +553,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {4}/{totalProjects}
+            Project {5}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Collaborative Whiteboard Application</ProjectTitle>
           <ProjectDescription>
@@ -553,7 +621,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {5}/{totalProjects}
+            Project {6}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Dictionary Client-Server Application</ProjectTitle>
           <ProjectDescription>
@@ -627,7 +695,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {6}/{totalProjects}
+            Project {7}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Custom RPC System</ProjectTitle>
           <ProjectDescription>
@@ -695,7 +763,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {7}/{totalProjects}
+            Project {8}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Process Management Simulator</ProjectTitle>
           <ProjectDescription>
@@ -765,7 +833,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {8}/{totalProjects}
+            Project {9}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>PacMan TorusVerse</ProjectTitle>
           <ProjectDescription>
@@ -835,7 +903,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {9}/{totalProjects}
+            Project {10}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>ShadowDimension</ProjectTitle>
           <ProjectDescription>
