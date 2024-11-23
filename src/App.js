@@ -8,6 +8,7 @@ import Research from './pages/Research';
 import Projects from './pages/Projects';
 import CV from './pages/CV';
 import Blog from './pages/Blog';
+import NotFound from './pages/NotFound';
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/cv" element={<CV />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
           <Footer />
