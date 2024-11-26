@@ -244,6 +244,7 @@ const ProjectLink = styled.a`
 
 const Projects = () => {
   const [openDetails, setOpenDetails] = useState({
+    promptOptimizer: false,
     interviewCopilot: false,
     shadowDimension: false,
     pacmanTorusVerse: false,
@@ -279,6 +280,73 @@ const Projects = () => {
         <ProjectCard>
           <ProjectCounter>
             Project {1}/{totalProjects}
+          </ProjectCounter>
+          <ProjectTitle>Prompt Optimizer</ProjectTitle>
+          <ProjectDescription>
+            A modern web application that helps optimize prompts for Large Language Models (LLMs) 
+            like GPT-4o and Claude 3.5 Sonnet. Features real-time prompt optimization, secure API 
+            key management, and a beautiful responsive UI with dark mode support.
+          </ProjectDescription>
+
+          <TagContainer>
+            <Tag>Next.js</Tag>
+            <Tag>Tailwind CSS</Tag>
+            <Tag>AI</Tag>
+            <Tag>OpenAI</Tag>
+            <Tag>Anthropic</Tag>
+          </TagContainer>
+
+          <DetailsButton onClick={() => toggleDetails("promptOptimizer")}>
+            {openDetails.promptOptimizer ? "< Less Details />" : "< More Details />"}
+          </DetailsButton>
+
+          <ProjectDetails isOpen={openDetails.promptOptimizer}>
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Key Features:
+            </h4>
+            <FeatureList>
+              <li>Transform natural language prompts into optimized instructions</li>
+              <li>Support for multiple LLM models (GPT-4o and Claude 3.5)</li>
+              <li>Beautiful, responsive UI with dark mode support</li>
+              <li>Secure local storage of API keys</li>
+              <li>Real-time prompt optimization</li>
+            </FeatureList>
+
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Technical Implementation:
+            </h4>
+            <FeatureList>
+              <li>Next.js 14 with modern React patterns</li>
+              <li>Tailwind CSS for responsive styling</li>
+              <li>OpenAI and Anthropic API integrations</li>
+              <li>Secure API key management system</li>
+              <li>Real-time optimization feedback</li>
+            </FeatureList>
+
+            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+              Development Standards:
+            </h4>
+            <FeatureList>
+              <li>Modern tech stack with Next.js and Tailwind</li>
+              <li>Secure API key handling practices</li>
+              <li>Responsive design principles</li>
+              <li>User-centric interface design</li>
+              <li>Performance-optimized implementation</li>
+            </FeatureList>
+
+            <ProjectLink
+              href="https://github.com/dredre815/prompt-optimizer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub →
+            </ProjectLink>
+          </ProjectDetails>
+        </ProjectCard>
+
+        <ProjectCard>
+          <ProjectCounter>
+            Project {2}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Interview Copilot</ProjectTitle>
           <ProjectDescription>
@@ -345,7 +413,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {2}/{totalProjects}
+            Project {3}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Melbourne Urban Mobility Dashboard</ProjectTitle>
           <ProjectDescription>
@@ -415,7 +483,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {3}/{totalProjects}
+            Project {4}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Lyonville Community Website</ProjectTitle>
           <ProjectDescription>
@@ -485,7 +553,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {4}/{totalProjects}
+            Project {5}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Splendor AI Agent</ProjectTitle>
           <ProjectDescription>
@@ -553,7 +621,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {5}/{totalProjects}
+            Project {6}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Collaborative Whiteboard Application</ProjectTitle>
           <ProjectDescription>
@@ -621,7 +689,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {6}/{totalProjects}
+            Project {7}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Dictionary Client-Server Application</ProjectTitle>
           <ProjectDescription>
@@ -695,7 +763,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {7}/{totalProjects}
+            Project {8}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Custom RPC System</ProjectTitle>
           <ProjectDescription>
@@ -763,7 +831,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {8}/{totalProjects}
+            Project {9}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>Process Management Simulator</ProjectTitle>
           <ProjectDescription>
@@ -833,7 +901,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {9}/{totalProjects}
+            Project {10}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>PacMan TorusVerse</ProjectTitle>
           <ProjectDescription>
@@ -903,7 +971,7 @@ const Projects = () => {
 
         <ProjectCard>
           <ProjectCounter>
-            Project {10}/{totalProjects}
+            Project {11}/{totalProjects}
           </ProjectCounter>
           <ProjectTitle>ShadowDimension</ProjectTitle>
           <ProjectDescription>
