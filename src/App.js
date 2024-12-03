@@ -1,37 +1,35 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 import Layout from './components/Layout';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
+import { ThemeProvider } from './styles/ThemeContext';
 import Home from './pages/Home';
 import Research from './pages/Research';
 import Projects from './pages/Projects';
 import CV from './pages/CV';
 import Blog from './pages/Blog';
 import NotFound from './pages/NotFound';
-import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
-    <ErrorBoundary>
+    <ThemeProvider>
       <Router>
-        <GlobalStyles />
-        <div className="App">
-          <Navbar />
-          <Layout>
-            <Routes>
+        <ErrorBoundary>
+          <GlobalStyles />
+          <Routes>
+            <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/research" element={<Research />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/cv" element={<CV />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-          <Footer />
-        </div>
+            </Route>
+          </Routes>
+        </ErrorBoundary>
       </Router>
-    </ErrorBoundary>
+    </ThemeProvider>
   );
 }
 

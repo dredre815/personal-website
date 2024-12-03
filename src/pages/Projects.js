@@ -34,7 +34,7 @@ const Header = styled.div`
   }
   
   .subtitle {
-    color: #ccc;
+    color: ${props => props.theme.researchCardSecondary};
     font-family: 'Courier New', monospace;
     line-height: 1.6;
   }
@@ -52,18 +52,19 @@ const ProjectGrid = styled.div`
 
 const ProjectCard = styled.div`
   width: 100%;
-  border: 1px solid var(--primary);
-  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid ${props => props.theme.researchCardBorder};
+  background: ${props => props.theme.researchCardBackground};
   padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(5px);
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
-    background: rgba(0, 0, 0, 0.4);
+    box-shadow: ${props => props.theme.researchCardHoverShadow};
+    background: ${props => props.theme.researchCardExpandedBg};
   }
 
   &:before {
@@ -86,7 +87,7 @@ const ProjectCard = styled.div`
     background: linear-gradient(
       to bottom,
       transparent,
-      rgba(0, 255, 0, 0.05),
+      ${props => props.theme.researchCardHighlight}10,
       transparent
     );
     transform: rotate(45deg);
@@ -111,7 +112,7 @@ const ProjectCard = styled.div`
 `;
 
 const ProjectTitle = styled.h3`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardTitle};
   font-size: 1.8rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
@@ -125,7 +126,7 @@ const ProjectTitle = styled.h3`
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--primary);
+    background: ${props => props.theme.researchCardHighlight};
     transition: width 0.3s ease;
   }
 
@@ -135,7 +136,7 @@ const ProjectTitle = styled.h3`
 `;
 
 const ProjectDescription = styled.p`
-  color: #fff;
+  color: ${props => props.theme.researchCardText};
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;
@@ -148,17 +149,17 @@ const TagContainer = styled.div`
 `;
 
 const Tag = styled.span`
-  background: rgba(0, 255, 0, 0.1);
-  color: var(--primary);
+  background: ${props => props.theme.researchCardTag.background};
+  color: ${props => props.theme.researchCardTag.text};
   padding: 0.3rem 0.6rem;
-  border: 1px solid var(--primary);
+  border: 1px solid ${props => props.theme.researchCardTag.border};
   border-radius: 4px;
   font-size: 0.9rem;
   transition: all 0.3s ease;
 
   &:hover {
-    background: var(--primary);
-    color: var(--background);
+    background: ${props => props.theme.researchCardHighlight};
+    color: #ffffff;
     transform: translateY(-2px);
   }
 `;
@@ -169,8 +170,10 @@ const ProjectCounter = styled.div`
   right: 1rem;
   color: var(--primary);
   font-family: 'Courier New', monospace;
-  opacity: 0.5;
   font-size: 0.9rem;
+  font-weight: bold;
+  opacity: 1;
+  text-shadow: ${props => props.theme.background === '#000000' ? '0 0 8px var(--primary)' : 'none'};
 `;
 
 const ProjectDetails = styled.div`
@@ -183,12 +186,15 @@ const ProjectDetails = styled.div`
   position: relative;
   padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
   z-index: 1;
+  border-top: ${props => props.isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
+  margin-top: ${props => props.isOpen ? '1rem' : '0'};
+  padding-top: ${props => props.isOpen ? '1rem' : '0'};
 `;
 
 const DetailsButton = styled.button`
   background: none;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  border: 1px solid ${props => props.theme.researchCardHighlight};
+  color: ${props => props.theme.researchCardHighlight};
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -208,7 +214,7 @@ const DetailsButton = styled.button`
     left: 50%;
     width: 0;
     height: 0;
-    background: var(--primary);
+    background: ${props => props.theme.researchCardHighlight};
     transform: translate(-50%, -50%);
     border-radius: 50%;
     transition: width 0.3s ease, height 0.3s ease;
@@ -217,7 +223,7 @@ const DetailsButton = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      color: var(--background);
+      color: ${props => props.theme.researchCardBackground};
       &:before {
         width: 300%;
         height: 300%;
@@ -226,7 +232,7 @@ const DetailsButton = styled.button`
   }
 
   &:active {
-    color: var(--background);
+    color: ${props => props.theme.researchCardBackground};
     &:before {
       width: 300%;
       height: 300%;
@@ -240,7 +246,7 @@ const DetailsButton = styled.button`
   @media (hover: none) {
     &:focus {
       background: none;
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       &:before {
         width: 0;
         height: 0;

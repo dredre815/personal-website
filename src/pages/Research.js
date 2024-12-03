@@ -30,7 +30,7 @@ const Header = styled.div`
   }
   
   .subtitle {
-    color: #ccc;
+    color: ${props => props.theme.researchCardSecondary};
     font-family: 'Courier New', monospace;
     line-height: 1.6;
   }
@@ -44,18 +44,19 @@ const ResearchGrid = styled.div`
 
 const ResearchCard = styled.div`
   width: 100%;
-  border: 1px solid var(--primary);
-  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid ${props => props.theme.researchCardBorder};
+  background: ${props => props.theme.researchCardBackground};
   padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(5px);
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
-    background: rgba(0, 0, 0, 0.4);
+    box-shadow: ${props => props.theme.researchCardHoverShadow};
+    background: ${props => props.theme.researchCardExpandedBg};
   }
 
   &:before {
@@ -78,7 +79,7 @@ const ResearchCard = styled.div`
     background: linear-gradient(
       to bottom,
       transparent,
-      rgba(0, 255, 0, 0.05),
+      ${props => props.theme.researchCardHighlight}10,
       transparent
     );
     transform: rotate(45deg);
@@ -103,7 +104,7 @@ const ResearchCard = styled.div`
 `;
 
 const ResearchTitle = styled.h2`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardTitle};
   font-size: 1.8rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
@@ -117,7 +118,7 @@ const ResearchTitle = styled.h2`
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--primary);
+    background: ${props => props.theme.researchCardHighlight};
     transition: width 0.3s ease;
   }
 
@@ -133,7 +134,7 @@ const ResearchTitle = styled.h2`
 `;
 
 const ResearchDate = styled.div`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardSecondary};
   font-size: 0.9rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
@@ -141,13 +142,13 @@ const ResearchDate = styled.div`
 `;
 
 const ResearchDescription = styled.div`
-  color: #fff;
+  color: ${props => props.theme.researchCardText};
   line-height: 1.8;
   margin-bottom: 1.5rem;
 
   p {
     margin-bottom: 1.5rem;
-    color: #ccc;
+    color: ${props => props.theme.researchCardSecondary};
     font-size: 1rem;
   }
 
@@ -162,13 +163,13 @@ const ResearchDescription = styled.div`
   li {
     position: relative;
     padding-left: 1.5rem;
-    color: #fff;
+    color: ${props => props.theme.researchCardText};
     
     &:before {
       content: '>';
       position: absolute;
       left: 0;
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       opacity: 0.7;
     }
 
@@ -180,28 +181,6 @@ const ResearchDescription = styled.div`
   }
 `;
 
-const StatusBadge = styled.div`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 255, 0, 0.1);
-  color: var(--primary);
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--primary);
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-family: 'Courier New', monospace;
-  white-space: nowrap;
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    position: static;
-    display: inline-block;
-    margin-bottom: 1rem;
-    font-size: 0.75rem;
-  }
-`;
-
 const TagContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -210,17 +189,17 @@ const TagContainer = styled.div`
 `;
 
 const Tag = styled.span`
-  background: rgba(0, 255, 0, 0.1);
-  color: var(--primary);
+  background: ${props => props.theme.researchCardTag.background};
+  color: ${props => props.theme.researchCardTag.text};
   padding: 0.3rem 0.6rem;
-  border: 1px solid var(--primary);
+  border: 1px solid ${props => props.theme.researchCardTag.border};
   border-radius: 4px;
   font-size: 0.9rem;
   transition: all 0.3s ease;
   
   &:hover {
-    background: var(--primary);
-    color: var(--background);
+    background: ${props => props.theme.researchCardHighlight};
+    color: #ffffff;
     transform: translateY(-2px);
   }
 `;
@@ -235,6 +214,9 @@ const ProjectDetails = styled.div`
   position: relative;
   padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
   z-index: 1;
+  border-top: ${props => props.isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
+  margin-top: ${props => props.isOpen ? '1rem' : '0'};
+  padding-top: ${props => props.isOpen ? '1rem' : '0'};
 `;
 
 const FeatureList = styled.ul`
@@ -243,9 +225,11 @@ const FeatureList = styled.ul`
   
   li {
     margin-bottom: 0.5rem;
+    color: ${props => props.theme.researchCardText};
+    
     &:before {
       content: '>';
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       margin-right: 0.5rem;
     }
   }
@@ -315,6 +299,18 @@ const DetailsButton = styled.button`
   }
 `;
 
+const ResearchCounter = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  opacity: 1;
+  text-shadow: ${props => props.theme.background === '#000000' ? '0 0 8px var(--primary)' : 'none'};
+`;
+
 const Research = () => {
   const [openDetails, setOpenDetails] = useState({
     blockchain: false,
@@ -328,6 +324,55 @@ const Research = () => {
     }));
   };
 
+  const researchProjects = [
+    {
+      id: "blockchain",
+      title: "Enhancing Blockchain Security with LLMs",
+      date: "November 2024",
+      description: "Investigating the integration of Large Language Models (LLMs) with blockchain security mechanisms to create more robust and intelligent security tools.",
+      tags: ["Blockchain", "LLMs", "Smart Contracts", "Security Analytics", "GPT Models"],
+      details: {
+        focus: [
+          "Automated vulnerability detection in smart contracts using GPT-based models",
+          "Development of intelligent security assessment frameworks",
+          "Implementation of NLP-based security audit automation",
+          "Pattern recognition in blockchain security threats"
+        ],
+        methodologies: [
+          "Integration of LLMs with blockchain security mechanisms",
+          "Development of custom security assessment tools",
+          "Implementation of automated vulnerability detection systems",
+          "Analysis of smart contract security patterns"
+        ]
+      }
+    },
+    {
+      id: "adversarial",
+      title: "Adversarial Machine Learning",
+      date: "September 2024",
+      description: "Exploring the robustness of machine learning models against adversarial attacks and developing effective defense mechanisms.",
+      tags: ["PyTorch", "CNN", "LSTM", "Deep Learning", "Security"],
+      details: {
+        areas: [
+          "Development and analysis of adversarial examples for neural networks",
+          "Implementation of novel defense strategies against various attack vectors",
+          "Comprehensive evaluation of model vulnerabilities across architectures",
+          "Quantitative impact analysis of adversarial perturbations"
+        ],
+        approach: [
+          "Systematic experimentation with CNN and LSTM models",
+          "Implementation of various adversarial attack methods",
+          "Development of robust defense mechanisms",
+          "Quantitative analysis of model vulnerability patterns"
+        ]
+      }
+    }
+  ];
+
+  const sortedProjects = [...researchProjects].sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+
   return (
     <ResearchContainer>
       <Header>
@@ -339,110 +384,84 @@ const Research = () => {
       </Header>
 
       <ResearchGrid>
-        <ResearchCard>
-          <StatusBadge>Active Research</StatusBadge>
-          <ResearchTitle>Enhancing Blockchain Security with LLMs</ResearchTitle>
-          <ResearchDate>November 2024 - Present</ResearchDate>
+        {sortedProjects.map((project, index) => (
+          <ResearchCard key={project.id}>
+            <ResearchCounter>Research {index + 1}/{sortedProjects.length}</ResearchCounter>
+            <ResearchTitle>{project.title}</ResearchTitle>
+            <ResearchDate>{project.date} - Present</ResearchDate>
 
-          <ResearchDescription>
-            Investigating the integration of Large Language Models (LLMs) with
-            blockchain security mechanisms to create more robust and intelligent
-            security tools.
-          </ResearchDescription>
+            <ResearchDescription>
+              {project.description}
+            </ResearchDescription>
 
-          <TagContainer>
-            <Tag>Blockchain</Tag>
-            <Tag>LLMs</Tag>
-            <Tag>Smart Contracts</Tag>
-            <Tag>Security Analytics</Tag>
-            <Tag>GPT Models</Tag>
-          </TagContainer>
+            <TagContainer>
+              {project.tags.map(tag => (
+                <Tag key={tag}>{tag}</Tag>
+              ))}
+            </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("blockchain")} isOpen={openDetails.blockchain}>
-            {openDetails.blockchain ? "< Less Details />" : "< More Details />"}
-          </DetailsButton>
+            <DetailsButton 
+              onClick={() => toggleDetails(project.id)} 
+              isOpen={openDetails[project.id]}
+            >
+              {openDetails[project.id] ? "< Less Details />" : "< More Details />"}
+            </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.blockchain}>
-            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
-              Research Focus:
-            </h4>
-            <FeatureList>
-              <li>
-                Automated vulnerability detection in smart contracts using
-                GPT-based models
-              </li>
-              <li>Development of intelligent security assessment frameworks</li>
-              <li>Implementation of NLP-based security audit automation</li>
-              <li>Pattern recognition in blockchain security threats</li>
-            </FeatureList>
+            <ProjectDetails isOpen={openDetails[project.id]}>
+              {project.details.focus && (
+                <>
+                  <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+                    Research Focus:
+                  </h4>
+                  <FeatureList>
+                    {project.details.focus.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </FeatureList>
+                </>
+              )}
 
-            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
-              Methodologies:
-            </h4>
-            <FeatureList>
-              <li>Integration of LLMs with blockchain security mechanisms</li>
-              <li>Development of custom security assessment tools</li>
-              <li>
-                Implementation of automated vulnerability detection systems
-              </li>
-              <li>Analysis of smart contract security patterns</li>
-            </FeatureList>
-          </ProjectDetails>
-        </ResearchCard>
+              {project.details.methodologies && (
+                <>
+                  <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+                    Methodologies:
+                  </h4>
+                  <FeatureList>
+                    {project.details.methodologies.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </FeatureList>
+                </>
+              )}
 
-        <ResearchCard>
-          <StatusBadge>Active Research</StatusBadge>
-          <ResearchTitle>Adversarial Machine Learning</ResearchTitle>
-          <ResearchDate>September 2024 - Present</ResearchDate>
+              {project.details.areas && (
+                <>
+                  <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+                    Research Areas:
+                  </h4>
+                  <FeatureList>
+                    {project.details.areas.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </FeatureList>
+                </>
+              )}
 
-          <ResearchDescription>
-            Exploring the robustness of machine learning models against
-            adversarial attacks and developing effective defense mechanisms.
-          </ResearchDescription>
-
-          <TagContainer>
-            <Tag>PyTorch</Tag>
-            <Tag>CNN</Tag>
-            <Tag>LSTM</Tag>
-            <Tag>Deep Learning</Tag>
-            <Tag>Security</Tag>
-          </TagContainer>
-
-          <DetailsButton onClick={() => toggleDetails("adversarial")} isOpen={openDetails.adversarial}>
-            {openDetails.adversarial ? "< Less Details />" : "< More Details />"}
-          </DetailsButton>
-
-          <ProjectDetails isOpen={openDetails.adversarial}>
-            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
-              Research Areas:
-            </h4>
-            <FeatureList>
-              <li>
-                Development and analysis of adversarial examples for neural
-                networks
-              </li>
-              <li>
-                Implementation of novel defense strategies against various
-                attack vectors
-              </li>
-              <li>
-                Comprehensive evaluation of model vulnerabilities across
-                architectures
-              </li>
-              <li>Quantitative impact analysis of adversarial perturbations</li>
-            </FeatureList>
-
-            <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
-              Technical Approach:
-            </h4>
-            <FeatureList>
-              <li>Systematic experimentation with CNN and LSTM models</li>
-              <li>Implementation of various adversarial attack methods</li>
-              <li>Development of robust defense mechanisms</li>
-              <li>Quantitative analysis of model vulnerability patterns</li>
-            </FeatureList>
-          </ProjectDetails>
-        </ResearchCard>
+              {project.details.approach && (
+                <>
+                  <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
+                    Technical Approach:
+                  </h4>
+                  <FeatureList>
+                    {project.details.approach.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </FeatureList>
+                </>
+              )}
+            </ProjectDetails>
+          </ResearchCard>
+        ))}
       </ResearchGrid>
     </ResearchContainer>
   );

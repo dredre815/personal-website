@@ -15,18 +15,20 @@ const BlogContainer = styled.div`
 
 const BlogCard = styled.div`
   width: 100%;
-  border: 1px solid var(--primary);
-  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid ${props => props.theme.researchCardBorder};
+  background: ${props => props.theme.researchCardBackground};
   padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(5px);
+  box-shadow: ${props => props.theme.researchCardShadow};
+  margin-bottom: 2rem;
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
-    background: rgba(0, 0, 0, 0.4);
+    box-shadow: ${props => props.theme.researchCardHoverShadow};
+    background: ${props => props.theme.researchCardExpandedBg};
   }
 
   &:before {
@@ -49,7 +51,7 @@ const BlogCard = styled.div`
     background: linear-gradient(
       to bottom,
       transparent,
-      rgba(0, 255, 0, 0.05),
+      ${props => props.theme.researchCardHighlight}10,
       transparent
     );
     transform: rotate(45deg);
@@ -74,19 +76,20 @@ const BlogCard = styled.div`
 `;
 
 const BlogPost = styled.article`
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--primary);
+  background: ${props => props.theme.researchCardBackground};
+  border: 1px solid ${props => props.theme.researchCardBorder};
   padding: 2rem;
   border-radius: 8px;
   margin-bottom: 2rem;
   backdrop-filter: blur(5px);
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   @media (max-width: 768px) {
     padding: 1rem;
   }
 
   h3, h4 {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardTitle};
     margin: 1.5rem 0 1rem;
     font-family: 'Courier New', monospace;
   }
@@ -94,11 +97,13 @@ const BlogPost = styled.article`
   p {
     margin-bottom: 1rem;
     line-height: 1.8;
+    color: ${props => props.theme.researchCardText};
   }
 
   ul, ol {
     margin-bottom: 1rem;
     padding-left: 2rem;
+    color: ${props => props.theme.researchCardText};
   }
 
   li {
@@ -106,7 +111,7 @@ const BlogPost = styled.article`
   }
 
   strong {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardHighlight};
   }
 
   table {
@@ -118,19 +123,21 @@ const BlogPost = styled.article`
   }
 
   th, td {
-    border: 1px solid var(--primary);
+    border: 1px solid ${props => props.theme.researchCardBorder};
     padding: 0.5rem;
     text-align: left;
     white-space: nowrap;
+    color: ${props => props.theme.researchCardText};
   }
 
   th {
-    background: rgba(0, 255, 0, 0.1);
+    background: ${props => props.theme.researchCardTag.background};
+    color: ${props => props.theme.researchCardTag.text};
   }
 `;
 
 const BlogTitle = styled.h2`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardTitle};
   font-size: 1.8rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
@@ -144,7 +151,7 @@ const BlogTitle = styled.h2`
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--primary);
+    background: ${props => props.theme.researchCardHighlight};
     transition: width 0.3s ease;
   }
 
@@ -158,7 +165,7 @@ const BlogTitle = styled.h2`
 `;
 
 const BlogDate = styled.div`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardSecondary};
   font-size: 0.9rem;
   margin-bottom: 1rem;
   font-family: 'Courier New', monospace;
@@ -168,16 +175,19 @@ const BlogDate = styled.div`
 const BlogExcerpt = styled.p`
   margin: 1rem 0;
   line-height: 1.6;
-  color: #ccc;
+  color: ${props => props.theme.researchCardText};
 `;
 
 const ReadMoreLink = styled.div`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardHighlight};
   margin-top: 1rem;
   font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   
   &:hover {
     text-decoration: underline;
+    opacity: 0.8;
   }
 `;
 
@@ -204,7 +214,7 @@ const Header = styled.div`
   }
   
   .subtitle {
-    color: #ccc;
+    color: ${props => props.theme.researchCardSecondary};
     font-family: 'Courier New', monospace;
     line-height: 1.6;
   }
@@ -214,9 +224,9 @@ const BackButton = styled.button`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  background: ${props => props.theme.researchCardBackground};
+  border: 1px solid ${props => props.theme.researchCardHighlight};
+  color: ${props => props.theme.researchCardHighlight};
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -226,11 +236,13 @@ const BackButton = styled.button`
   gap: 0.5rem;
   backdrop-filter: blur(5px);
   z-index: 100;
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   &:hover {
-    background: var(--primary);
-    color: var(--background);
+    background: ${props => props.theme.researchCardHighlight};
+    color: ${props => props.theme.researchCardBackground};
     transform: scale(1.05);
+    box-shadow: ${props => props.theme.researchCardHoverShadow};
   }
 
   @media (max-width: 768px) {
@@ -240,17 +252,13 @@ const BackButton = styled.button`
 `;
 
 const ReadingTime = styled.span`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardSecondary};
   font-size: 0.9rem;
   font-family: 'Courier New', monospace;
   opacity: 0.8;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
-  &:before {
-    content: '⏱️';
-  }
 `;
 
 const TagContainer = styled.div`
@@ -280,46 +288,61 @@ const BlogGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  
-  @media (max-width: 768px) {
-    gap: 1.5rem;
-  }
+`;
+
+const BlogCounter = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  opacity: 1;
+  text-shadow: ${props => props.theme.background === '#000000' ? '0 0 8px var(--primary)' : 'none'};
 `;
 
 const Blog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const [blogs, setBlogs] = useState([]);
   const [blogContent, setBlogContent] = useState('');
   const blogRefs = useRef({});
   
-  const blogs = [
-    {
-      id: 3,
-      title: "LLMs in Blockchain Security: A Deep Dive",
-      date: "17/11/2024",
-      excerpt: 
-        "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
-      readingTime: 12,
-      filename: "blog3.md",
-    },
-    {
-      id: 2,
-      title: "What is Ethereum?",
-      date: "14/11/2024",
-      excerpt: 
-        "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
-      readingTime: 10,
-      filename: "blog2.md",
-    },
-    {
-      id: 1,
-      title: "What is Bitcoin?",
-      date: "9/11/2024",
-      excerpt:
-        "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
-      readingTime: 8,
-      filename: "blog1.md",
-    },
-  ];
+  useEffect(() => {
+    // Initialize blogs with your data
+    const fetchedBlogs = [
+      {
+        id: 3,
+        title: "LLMs in Blockchain Security: A Deep Dive",
+        date: "17/11/2024",
+        excerpt: 
+          "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
+        readingTime: 12,
+        filename: "blog3.md",
+      },
+      {
+        id: 2,
+        title: "What is Ethereum?",
+        date: "14/11/2024",
+        excerpt: 
+          "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
+        readingTime: 10,
+        filename: "blog2.md",
+      },
+      {
+        id: 1,
+        title: "What is Bitcoin?",
+        date: "9/11/2024",
+        excerpt:
+          "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
+        readingTime: 8,
+        filename: "blog1.md",
+      },
+    ];
+    // Sort blogs by date in descending order (newest first)
+    const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+    setBlogs(sortedBlogs);
+  }, []);
 
   useEffect(() => {
     if (selectedBlog) {
@@ -330,11 +353,15 @@ const Blog = () => {
     }
   }, [selectedBlog]);
 
-  const handleBack = (blogId) => {
+  const handleBack = () => {
+    const currentBlogId = selectedBlog.id;
     setSelectedBlog(null);
+    setBlogContent('');
+    
+    // Wait for the blog list to render before scrolling
     setTimeout(() => {
-      if (blogRefs.current[blogId]) {
-        blogRefs.current[blogId].scrollIntoView({ 
+      if (blogRefs.current[currentBlogId]) {
+        blogRefs.current[currentBlogId].scrollIntoView({ 
           behavior: 'smooth',
           block: 'center'
         });
@@ -345,7 +372,6 @@ const Blog = () => {
   if (selectedBlog) {
     const blogTags = {
       3: [
-        // LLMs & Blockchain Security blog
         "Blockchain Security",
         "LLMs",
         "Smart Contracts",
@@ -353,7 +379,6 @@ const Blog = () => {
         "DeFi",
       ],
       2: [
-        // Ethereum blog
         "Ethereum",
         "Smart Contracts",
         "DeFi",
@@ -361,7 +386,6 @@ const Blog = () => {
         "DAOs",
       ],
       1: [
-        // Bitcoin blog
         "Bitcoin",
         "Blockchain",
         "Digital Currency",
@@ -372,9 +396,6 @@ const Blog = () => {
 
     return (
       <BlogContainer>
-        <BackButton onClick={() => handleBack(selectedBlog.id)}>
-          ← Back to Blogs
-        </BackButton>
         <BlogPost>
           <BlogTitle>{selectedBlog.title}</BlogTitle>
           <BlogDate>{selectedBlog.date}</BlogDate>
@@ -383,8 +404,13 @@ const Blog = () => {
               <Tag key={index}>{tag}</Tag>
             ))}
           </TagContainer>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{blogContent}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {blogContent}
+          </ReactMarkdown>
         </BlogPost>
+        <BackButton onClick={handleBack}>
+          ← Back to Blog List
+        </BackButton>
       </BlogContainer>
     );
   }
@@ -399,14 +425,17 @@ const Blog = () => {
         </div>
       </Header>
       <BlogGrid>
-        {blogs.map((blog) => (
+        {blogs.map((blog, index) => (
           <BlogCard 
             key={blog.id} 
             onClick={() => setSelectedBlog(blog)}
             ref={el => blogRefs.current[blog.id] = el}
           >
-            <BlogDate>{blog.date}</BlogDate>
+            <BlogCounter>
+              Blog {index + 1}/{blogs.length}
+            </BlogCounter>
             <BlogTitle>{blog.title}</BlogTitle>
+            <BlogDate>{blog.date}</BlogDate>
             <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
             <ReadingTime>{blog.readingTime} min read</ReadingTime>
             <ReadMoreLink>Read More →</ReadMoreLink>

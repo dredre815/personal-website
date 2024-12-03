@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 const TimelineContainer = styled.div`
   margin: 2rem 0 1rem;
   padding: 4rem 2rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: ${props => props.theme.timelineBackground};
   border-radius: 20px;
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
   min-height: 1200px;
+  border: 1px solid ${props => props.theme.timelineEventBorder};
 
   @media (max-width: 768px) {
     padding: 2rem 1rem;
@@ -44,18 +45,20 @@ const TimelineEvent = styled.div`
   width: 45%;
   margin: ${props => props.side === 'left' ? '0 0 0 2rem' : '0 2rem 0 0'};
   padding: 2rem 1.5rem 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: ${props => props.theme.timelineEventBackground};
   border-radius: 12px;
-  border: 1px solid rgba(0, 255, 0, 0.1);
+  border: 1px solid ${props => props.theme.timelineEventBorder};
   backdrop-filter: blur(5px);
   transform: translateY(${props => props.active ? '0' : '20px'});
   opacity: ${props => props.active ? 1 : 0};
   transition: all 0.5s ease;
   cursor: pointer;
+  box-shadow: 0 2px 10px ${props => props.theme.timelineEventShadow};
 
   &:hover {
     border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 5px 15px ${props => props.theme.timelineEventShadow};
+    transform: translateY(${props => props.active ? '-5px' : '15px'});
   }
 
   @media (max-width: 768px) {
@@ -100,7 +103,7 @@ const EventTitle = styled.h3`
 `;
 
 const EventContent = styled.p`
-  color: #fff;
+  color: ${props => props.theme.timelineTextColor};
   margin: 0;
   line-height: 1.6;
 `;
@@ -109,11 +112,12 @@ const EventDate = styled.span`
   position: absolute;
   top: 0.7rem;
   ${props => props.side === 'left' ? 'right: 1rem' : 'left: 1rem'};
-  color: rgba(0, 255, 0, 0.7);
+  color: var(--primary);
   font-family: 'Courier New', monospace;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${props => props.theme.timelineEventBackground};
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
+  border: 1px solid ${props => props.theme.timelineEventBorder};
 
   @media (max-width: 768px) {
     left: 1rem;

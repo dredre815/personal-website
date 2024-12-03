@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -14,10 +17,14 @@ const Content = styled.main`
   width: 100%;
 `;
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <MainContainer>
-      <Content>{children}</Content>
+      <Navbar />
+      <Content>
+        <Outlet />
+      </Content>
+      <Footer />
     </MainContainer>
   );
 };

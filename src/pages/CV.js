@@ -15,7 +15,7 @@ const CVHeader = styled.div`
   margin-bottom: 3rem;
   
   h1 {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardTitle};
     font-size: 2.5rem;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
@@ -26,6 +26,7 @@ const CVHeader = styled.div`
       font-size: 1rem;
       opacity: 0.7;
       margin-bottom: 0.5rem;
+      color: ${props => props.theme.researchCardSecondary};
     }
     
     @media (max-width: 768px) {
@@ -34,7 +35,7 @@ const CVHeader = styled.div`
   }
   
   .subtitle {
-    color: #ccc;
+    color: ${props => props.theme.researchCardSecondary};
     font-family: 'Courier New', monospace;
     line-height: 1.6;
   }
@@ -58,9 +59,9 @@ const ActionButton = styled.a`
   justify-content: center;
   gap: 0.8rem;
   padding: 0.9rem 1.8rem;
-  background: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  background: ${props => props.theme.researchCardBackground};
+  border: 1px solid ${props => props.theme.researchCardHighlight};
+  color: ${props => props.theme.researchCardHighlight};
   font-family: 'Courier New', monospace;
   font-size: 0.95rem;
   letter-spacing: 0.5px;
@@ -71,6 +72,7 @@ const ActionButton = styled.a`
   position: relative;
   overflow: hidden;
   min-width: 200px;
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   display: flex;
   align-items: center;
@@ -84,10 +86,10 @@ const ActionButton = styled.a`
   }
   
   &:hover {
-    background: var(--primary);
-    color: var(--background);
+    background: ${props => props.theme.researchCardHighlight};
+    color: ${props => props.theme.researchCardBackground};
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.15);
+    box-shadow: ${props => props.theme.researchCardHoverShadow};
     
     span {
       transform: scale(1.1);
@@ -96,7 +98,7 @@ const ActionButton = styled.a`
   
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.1);
+    box-shadow: ${props => props.theme.researchCardShadow};
   }
   
   @media (max-width: 768px) {
@@ -120,20 +122,21 @@ const PreviewContainer = styled.div`
   position: relative;
   width: 100%;
   height: 800px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid var(--primary);
+  background: ${props => props.theme.researchCardBackground};
+  border: 1px solid ${props => props.theme.researchCardBorder};
   border-radius: 8px;
   overflow: hidden;
   margin-top: 2rem;
+  box-shadow: ${props => props.theme.researchCardShadow};
   
   .title-bar {
     height: 2.5rem;
-    background: rgba(0, 0, 0, 0.8);
-    border-bottom: 1px solid var(--primary);
+    background: ${props => props.theme.researchCardTag.background};
+    border-bottom: 1px solid ${props => props.theme.researchCardBorder};
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary);
+    color: ${props => props.theme.researchCardTitle};
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
   }
@@ -155,7 +158,7 @@ const LoadingContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: var(--primary);
+  color: ${props => props.theme.researchCardHighlight};
   font-family: 'Courier New', monospace;
 `;
 

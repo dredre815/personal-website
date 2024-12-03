@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 const FooterContainer = styled.footer`
   padding: 2rem 1rem;
-  background: rgba(0, 0, 0, 0.9);
-  border-top: 1px solid var(--primary);
+  background: ${props => props.theme.researchCardBackground};
+  border-top: 1px solid ${props => props.theme.researchCardBorder};
   width: 100%;
   font-size: 0.9rem;
+  box-shadow: 0 -4px 6px ${props => props.theme.researchCardShadow};
 `;
 
 const FooterGrid = styled.div`
@@ -24,7 +25,7 @@ const FooterGrid = styled.div`
 
 const FooterSection = styled.div`
   h3 {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardTitle};
     font-size: 1.1rem;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
@@ -34,7 +35,7 @@ const FooterSection = styled.div`
     
     &:before {
       content: '>';
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
     }
     
     @media (max-width: 768px) {
@@ -49,14 +50,15 @@ const QuoteSection = styled(FooterSection)`
     margin-bottom: 0.5rem;
     line-height: 1.6;
     padding: 1rem;
-    border: 1px solid rgba(0, 255, 0, 0.2);
+    border: 1px solid ${props => props.theme.researchCardBorder};
     border-radius: 4px;
-    background: rgba(0, 255, 0, 0.05);
+    background: ${props => props.theme.researchCardTag.background};
     position: relative;
+    color: ${props => props.theme.researchCardText};
     
     &:before {
       content: '"';
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       font-size: 1.5rem;
       position: absolute;
       left: 0.2rem;
@@ -65,7 +67,7 @@ const QuoteSection = styled(FooterSection)`
     
     &:after {
       content: '"';
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       font-size: 1.5rem;
       position: absolute;
       right: 0.5rem;
@@ -74,7 +76,7 @@ const QuoteSection = styled(FooterSection)`
   }
   
   .author {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardHighlight};
     margin-top: 1rem;
     text-align: right;
     
@@ -93,6 +95,7 @@ const ConnectSection = styled(FooterSection)`
     margin-bottom: 1rem;
     line-height: 1.6;
     font-family: 'Courier New', monospace;
+    color: ${props => props.theme.researchCardText};
   }
 `;
 
@@ -106,17 +109,17 @@ const SocialLinks = styled.div`
   }
   
   a {
-    color: var(--text);
+    color: ${props => props.theme.researchCardText};
     transition: all 0.3s ease;
     padding: 0.5rem;
     border: 1px solid transparent;
     border-radius: 4px;
     
     &:hover {
-      color: var(--primary);
+      color: ${props => props.theme.researchCardHighlight};
       transform: translateY(-2px);
-      border-color: var(--primary);
-      background: rgba(0, 255, 0, 0.05);
+      border-color: ${props => props.theme.researchCardHighlight};
+      background: ${props => props.theme.researchCardTag.background};
     }
   }
 `;
@@ -125,12 +128,12 @@ const Copyright = styled.div`
   text-align: center;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(0, 255, 0, 0.1);
-  color: #666;
+  border-top: 1px solid ${props => props.theme.researchCardBorder};
+  color: ${props => props.theme.researchCardSecondary};
   font-size: 0.8rem;
   
   .heart {
-    color: var(--primary);
+    color: ${props => props.theme.researchCardHighlight};
     display: inline-block;
     animation: pulse 1.5s infinite;
   }
@@ -143,7 +146,7 @@ const Copyright = styled.div`
 `;
 
 const TerminalPrompt = styled.div`
-  color: var(--primary);
+  color: ${props => props.theme.researchCardHighlight};
   font-family: 'Courier New', monospace;
   margin-bottom: 0.5rem;
   opacity: 0.7;
