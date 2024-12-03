@@ -225,6 +225,32 @@ const Tag = styled.span`
   }
 `;
 
+const ProjectDetails = styled.div`
+  margin-top: ${props => props.isOpen ? '1rem' : '0'};
+  max-height: ${props => props.isOpen ? '2000px' : '0'};
+  opacity: ${props => props.isOpen ? '1' : '0'};
+  overflow: hidden;
+  transition: all 0.5s ease;
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  position: relative;
+  padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
+  z-index: 1;
+`;
+
+const FeatureList = styled.ul`
+  list-style: none;
+  margin: 1rem 0;
+  
+  li {
+    margin-bottom: 0.5rem;
+    &:before {
+      content: '>';
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+  }
+`;
+
 const DetailsButton = styled.button`
   background: none;
   border: 1px solid var(--primary);
@@ -233,8 +259,13 @@ const DetailsButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
-  position: relative;
+  position: ${props => props.isOpen ? 'absolute' : 'relative'};
+  bottom: ${props => props.isOpen ? '1.2rem' : 'auto'};
+  left: ${props => props.isOpen ? '1.2rem' : 'auto'};
   overflow: hidden;
+  margin-top: ${props => props.isOpen ? '0' : '1rem'};
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
 
   &:before {
     content: '';
@@ -250,34 +281,36 @@ const DetailsButton = styled.button`
     z-index: -1;
   }
 
-  &:hover {
+  @media (hover: hover) {
+    &:hover {
+      color: var(--background);
+      &:before {
+        width: 300%;
+        height: 300%;
+      }
+    }
+  }
+
+  &:active {
     color: var(--background);
     &:before {
       width: 300%;
       height: 300%;
     }
   }
-`;
 
-const ProjectDetails = styled.div`
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  max-height: ${props => props.isOpen ? '2000px' : '0'};
-  opacity: ${props => props.isOpen ? '1' : '0'};
-  overflow: hidden;
-  transition: all 0.5s ease;
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-`;
+  &:focus {
+    outline: none;
+  }
 
-const FeatureList = styled.ul`
-  list-style: none;
-  margin: 1rem 0;
-  
-  li {
-    margin-bottom: 0.5rem;
-    &:before {
-      content: '>';
+  @media (hover: none) {
+    &:focus {
+      background: none;
       color: var(--primary);
-      margin-right: 0.5rem;
+      &:before {
+        width: 0;
+        height: 0;
+      }
     }
   }
 `;
@@ -325,7 +358,7 @@ const Research = () => {
             <Tag>GPT Models</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("blockchain")}>
+          <DetailsButton onClick={() => toggleDetails("blockchain")} isOpen={openDetails.blockchain}>
             {openDetails.blockchain ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -375,10 +408,8 @@ const Research = () => {
             <Tag>Security</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("adversarial")}>
-            {openDetails.adversarial
-              ? "< Less Details />"
-              : "< More Details />"}
+          <DetailsButton onClick={() => toggleDetails("adversarial")} isOpen={openDetails.adversarial}>
+            {openDetails.adversarial ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
           <ProjectDetails isOpen={openDetails.adversarial}>

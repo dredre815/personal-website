@@ -173,6 +173,18 @@ const ProjectCounter = styled.div`
   font-size: 0.9rem;
 `;
 
+const ProjectDetails = styled.div`
+  margin-top: ${props => props.isOpen ? '1rem' : '0'};
+  max-height: ${props => props.isOpen ? '2000px' : '0'};
+  opacity: ${props => props.isOpen ? '1' : '0'};
+  overflow: hidden;
+  transition: all 0.5s ease;
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  position: relative;
+  padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
+  z-index: 1;
+`;
+
 const DetailsButton = styled.button`
   background: none;
   border: 1px solid var(--primary);
@@ -181,8 +193,13 @@ const DetailsButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
-  position: relative;
+  position: ${props => props.isOpen ? 'absolute' : 'relative'};
+  bottom: ${props => props.isOpen ? '1.2rem' : 'auto'};
+  left: ${props => props.isOpen ? '1.2rem' : 'auto'};
   overflow: hidden;
+  margin-top: ${props => props.isOpen ? '0' : '1rem'};
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
 
   &:before {
     content: '';
@@ -198,22 +215,38 @@ const DetailsButton = styled.button`
     z-index: -1;
   }
 
-  &:hover {
+  @media (hover: hover) {
+    &:hover {
+      color: var(--background);
+      &:before {
+        width: 300%;
+        height: 300%;
+      }
+    }
+  }
+
+  &:active {
     color: var(--background);
     &:before {
       width: 300%;
       height: 300%;
     }
   }
-`;
 
-const ProjectDetails = styled.div`
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  max-height: ${props => props.isOpen ? '2000px' : '0'};
-  opacity: ${props => props.isOpen ? '1' : '0'};
-  overflow: hidden;
-  transition: all 0.5s ease;
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  &:focus {
+    outline: none;
+  }
+
+  @media (hover: none) {
+    &:focus {
+      background: none;
+      color: var(--primary);
+      &:before {
+        width: 0;
+        height: 0;
+      }
+    }
+  }
 `;
 
 const FeatureList = styled.ul`
@@ -296,7 +329,7 @@ const Projects = () => {
             <Tag>Anthropic</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("promptOptimizer")}>
+          <DetailsButton onClick={() => toggleDetails("promptOptimizer")} isOpen={openDetails.promptOptimizer}>
             {openDetails.promptOptimizer ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -363,7 +396,7 @@ const Projects = () => {
             <Tag>ChatGPT</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("interviewCopilot")}>
+          <DetailsButton onClick={() => toggleDetails("interviewCopilot")} isOpen={openDetails.interviewCopilot}>
             {openDetails.interviewCopilot ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -431,7 +464,7 @@ const Projects = () => {
             <Tag>Urban Analytics</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("melbourneDashboard")}>
+          <DetailsButton onClick={() => toggleDetails("melbourneDashboard")} isOpen={openDetails.melbourneDashboard}>
             {openDetails.melbourneDashboard
               ? "< Less Details />"
               : "< More Details />"}
@@ -501,7 +534,7 @@ const Projects = () => {
             <Tag>Responsive Design</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("lyonville")}>
+          <DetailsButton onClick={() => toggleDetails("lyonville")} isOpen={openDetails.lyonville}>
             {openDetails.lyonville ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -571,7 +604,7 @@ const Projects = () => {
             <Tag>Heuristics</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("splendorAI")}>
+          <DetailsButton onClick={() => toggleDetails("splendorAI")} isOpen={openDetails.splendorAI}>
             {openDetails.splendorAI ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -639,7 +672,7 @@ const Projects = () => {
             <Tag>Collaboration</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("whiteBoard")}>
+          <DetailsButton onClick={() => toggleDetails("whiteBoard")} isOpen={openDetails.whiteBoard}>
             {openDetails.whiteBoard ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -707,7 +740,7 @@ const Projects = () => {
             <Tag>File I/O</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("dictionaryServer")}>
+          <DetailsButton onClick={() => toggleDetails("dictionaryServer")} isOpen={openDetails.dictionaryServer}>
             {openDetails.dictionaryServer
               ? "< Less Details />"
               : "< More Details />"}
@@ -781,7 +814,7 @@ const Projects = () => {
             <Tag>IPC</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("rpcSystem")}>
+          <DetailsButton onClick={() => toggleDetails("rpcSystem")} isOpen={openDetails.rpcSystem}>
             {openDetails.rpcSystem ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
@@ -849,7 +882,7 @@ const Projects = () => {
             <Tag>IPC</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("processManagement")}>
+          <DetailsButton onClick={() => toggleDetails("processManagement")} isOpen={openDetails.processManagement}>
             {openDetails.processManagement
               ? "< Less Details />"
               : "< More Details />"}
@@ -919,7 +952,7 @@ const Projects = () => {
             <Tag>Map Editor</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("pacmanTorusVerse")}>
+          <DetailsButton onClick={() => toggleDetails("pacmanTorusVerse")} isOpen={openDetails.pacmanTorusVerse}>
             {openDetails.pacmanTorusVerse
               ? "< Less Details />"
               : "< More Details />"}
@@ -987,7 +1020,7 @@ const Projects = () => {
             <Tag>2D RPG</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("shadowDimension")}>
+          <DetailsButton onClick={() => toggleDetails("shadowDimension")} isOpen={openDetails.shadowDimension}>
             {openDetails.shadowDimension
               ? "< Less Details />"
               : "< More Details />"}
