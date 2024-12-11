@@ -377,7 +377,13 @@ const Blog = () => {
     if (selectedBlog) {
       fetch(`/${selectedBlog.filename}`)
         .then(response => response.text())
-        .then(text => setBlogContent(text))
+        .then(text => {
+          setBlogContent(text);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        })
         .catch(error => console.error('Error loading blog post:', error));
     }
   }, [selectedBlog]);

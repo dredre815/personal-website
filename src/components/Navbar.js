@@ -67,13 +67,14 @@ const NavLinks = styled.div`
     width: 75%;
     background: ${props => props.theme.researchCardBackground};
     flex-direction: column;
-    justify-content: center;
-    padding: 2rem;
-    gap: 2rem;
+    justify-content: flex-start;
+    padding: 5rem 2rem 6rem;
+    gap: 1.5rem;
     transition: right 0.3s ease;
     box-shadow: ${props => props.$isOpen ? '-5px 0 15px rgba(0, 0, 0, 0.1)' : 'none'};
     z-index: 1000;
     backdrop-filter: blur(10px);
+    overflow-y: auto;
   }
 `;
 
@@ -138,11 +139,14 @@ const ThemeSwitcherWrapper = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     left: 0;
     right: 0;
     justify-content: center;
+    background: ${props => props.theme.researchCardBackground};
+    padding: 1rem;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
   }
 `;
 
