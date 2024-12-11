@@ -59,7 +59,7 @@ const NavLinks = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    display: ${props => props.isOpen ? 'flex' : 'none'};
+    display: ${props => props.$isOpen ? 'flex' : 'none'};
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -152,7 +152,7 @@ const Navbar = () => {
       <MenuButton onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? '×' : '☰'}
       </MenuButton>
-      <NavLinks isOpen={isOpen}>
+      <NavLinks $isOpen={isOpen}>
         <NavLink 
           to="/" 
           className={location.pathname === '/' ? 'active' : ''} 

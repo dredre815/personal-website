@@ -205,18 +205,18 @@ const Tag = styled.span`
 `;
 
 const ProjectDetails = styled.div`
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  max-height: ${props => props.isOpen ? '2000px' : '0'};
-  opacity: ${props => props.isOpen ? '1' : '0'};
+  margin-top: ${props => props.$isOpen ? '1rem' : '0'};
+  max-height: ${props => props.$isOpen ? '2000px' : '0'};
+  opacity: ${props => props.$isOpen ? '1' : '0'};
   overflow: hidden;
   transition: all 0.5s ease;
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
   position: relative;
-  padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
+  padding-bottom: ${props => props.$isOpen ? '3.5rem' : '0'};
   z-index: 1;
-  border-top: ${props => props.isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  padding-top: ${props => props.isOpen ? '1rem' : '0'};
+  border-top: ${props => props.$isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
+  margin-top: ${props => props.$isOpen ? '1rem' : '0'};
+  padding-top: ${props => props.$isOpen ? '1rem' : '0'};
 `;
 
 const FeatureList = styled.ul`
@@ -243,11 +243,11 @@ const DetailsButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
-  position: ${props => props.isOpen ? 'absolute' : 'relative'};
-  bottom: ${props => props.isOpen ? '1.2rem' : 'auto'};
-  left: ${props => props.isOpen ? '1.2rem' : 'auto'};
+  position: ${props => props.$isOpen ? 'absolute' : 'relative'};
+  bottom: ${props => props.$isOpen ? '1.2rem' : 'auto'};
+  left: ${props => props.$isOpen ? '1.2rem' : 'auto'};
   overflow: hidden;
-  margin-top: ${props => props.isOpen ? '0' : '1rem'};
+  margin-top: ${props => props.$isOpen ? '0' : '1rem'};
   z-index: 2;
   -webkit-tap-highlight-color: transparent;
 
@@ -402,12 +402,12 @@ const Research = () => {
 
             <DetailsButton 
               onClick={() => toggleDetails(project.id)} 
-              isOpen={openDetails[project.id]}
+              $isOpen={openDetails[project.id]}
             >
               {openDetails[project.id] ? "< Less Details />" : "< More Details />"}
             </DetailsButton>
 
-            <ProjectDetails isOpen={openDetails[project.id]}>
+            <ProjectDetails $isOpen={openDetails[project.id]}>
               {project.details.focus && (
                 <>
                   <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>

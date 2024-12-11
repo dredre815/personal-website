@@ -41,16 +41,16 @@ const TimelinePath = styled.div`
 
 const TimelineEvent = styled.div`
   position: absolute;
-  left: ${props => props.side === 'left' ? '0' : '50%'};
+  left: ${props => props.$side === 'left' ? '0' : '50%'};
   width: 45%;
-  margin: ${props => props.side === 'left' ? '0 0 0 2rem' : '0 2rem 0 0'};
+  margin: ${props => props.$side === 'left' ? '0 0 0 2rem' : '0 2rem 0 0'};
   padding: 2rem 1.5rem 1.5rem;
   background: ${props => props.theme.timelineEventBackground};
   border-radius: 12px;
   border: 1px solid ${props => props.theme.timelineEventBorder};
   backdrop-filter: blur(5px);
-  transform: translateY(${props => props.active ? '0' : '20px'});
-  opacity: ${props => props.active ? 1 : 0};
+  transform: translateY(${props => props.$active ? '0' : '20px'});
+  opacity: ${props => props.$active ? 1 : 0};
   transition: all 0.5s ease;
   cursor: pointer;
   box-shadow: 0 2px 10px ${props => props.theme.timelineEventShadow};
@@ -58,7 +58,7 @@ const TimelineEvent = styled.div`
   &:hover {
     border-color: var(--primary);
     box-shadow: 0 5px 15px ${props => props.theme.timelineEventShadow};
-    transform: translateY(${props => props.active ? '-5px' : '15px'});
+    transform: translateY(${props => props.$active ? '-5px' : '15px'});
   }
 
   @media (max-width: 768px) {
@@ -111,7 +111,7 @@ const EventContent = styled.p`
 const EventDate = styled.span`
   position: absolute;
   top: 0.7rem;
-  ${props => props.side === 'left' ? 'right: 1rem' : 'left: 1rem'};
+  ${props => props.$side === 'left' ? 'right: 1rem' : 'left: 1rem'};
   color: var(--primary);
   font-family: 'Courier New', monospace;
   background: ${props => props.theme.timelineEventBackground};
@@ -211,14 +211,14 @@ const InteractiveTimeline = () => {
       {events.map((event, index) => (
         <div key={event.id}>
           <TimelineEvent
-            side={event.side}
-            active={activeEvents.includes(event.id)}
+            $side={event.side}
+            $active={activeEvents.includes(event.id)}
             data-id={event.id}
             style={{ 
               ...(window.innerWidth > 768 && { top: `${index * 11}%` })
             }}
           >
-            <EventDate side={event.side}>{event.date}</EventDate>
+            <EventDate $side={event.side}>{event.date}</EventDate>
             <EventTitle>{event.title}</EventTitle>
             <EventContent>{event.content}</EventContent>
           </TimelineEvent>

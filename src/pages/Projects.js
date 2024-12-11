@@ -177,18 +177,18 @@ const ProjectCounter = styled.div`
 `;
 
 const ProjectDetails = styled.div`
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  max-height: ${props => props.isOpen ? '2000px' : '0'};
-  opacity: ${props => props.isOpen ? '1' : '0'};
+  margin-top: ${props => props.$isOpen ? '1rem' : '0'};
+  max-height: ${props => props.$isOpen ? '2000px' : '0'};
+  opacity: ${props => props.$isOpen ? '1' : '0'};
   overflow: hidden;
   transition: all 0.5s ease;
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
   position: relative;
-  padding-bottom: ${props => props.isOpen ? '3.5rem' : '0'};
+  padding-bottom: ${props => props.$isOpen ? '3.5rem' : '0'};
   z-index: 1;
-  border-top: ${props => props.isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
-  margin-top: ${props => props.isOpen ? '1rem' : '0'};
-  padding-top: ${props => props.isOpen ? '1rem' : '0'};
+  border-top: ${props => props.$isOpen ? `1px solid ${props.theme.researchCardDivider}` : 'none'};
+  margin-top: ${props => props.$isOpen ? '1rem' : '0'};
+  padding-top: ${props => props.$isOpen ? '1rem' : '0'};
 `;
 
 const DetailsButton = styled.button`
@@ -199,11 +199,11 @@ const DetailsButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
-  position: ${props => props.isOpen ? 'absolute' : 'relative'};
-  bottom: ${props => props.isOpen ? '1.2rem' : 'auto'};
-  left: ${props => props.isOpen ? '1.2rem' : 'auto'};
+  position: ${props => props.$isOpen ? 'absolute' : 'relative'};
+  bottom: ${props => props.$isOpen ? '1.2rem' : 'auto'};
+  left: ${props => props.$isOpen ? '1.2rem' : 'auto'};
   overflow: hidden;
-  margin-top: ${props => props.isOpen ? '0' : '1rem'};
+  margin-top: ${props => props.$isOpen ? '0' : '1rem'};
   z-index: 2;
   -webkit-tap-highlight-color: transparent;
 
@@ -335,11 +335,11 @@ const Projects = () => {
             <Tag>Anthropic</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("promptOptimizer")} isOpen={openDetails.promptOptimizer}>
+          <DetailsButton onClick={() => toggleDetails("promptOptimizer")} $isOpen={openDetails.promptOptimizer}>
             {openDetails.promptOptimizer ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.promptOptimizer}>
+          <ProjectDetails $isOpen={openDetails.promptOptimizer}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Key Features:
             </h4>
@@ -402,11 +402,11 @@ const Projects = () => {
             <Tag>ChatGPT</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("interviewCopilot")} isOpen={openDetails.interviewCopilot}>
+          <DetailsButton onClick={() => toggleDetails("interviewCopilot")} $isOpen={openDetails.interviewCopilot}>
             {openDetails.interviewCopilot ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.interviewCopilot}>
+          <ProjectDetails $isOpen={openDetails.interviewCopilot}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Key Features:
             </h4>
@@ -470,13 +470,13 @@ const Projects = () => {
             <Tag>Urban Analytics</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("melbourneDashboard")} isOpen={openDetails.melbourneDashboard}>
+          <DetailsButton onClick={() => toggleDetails("melbourneDashboard")} $isOpen={openDetails.melbourneDashboard}>
             {openDetails.melbourneDashboard
               ? "< Less Details />"
               : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.melbourneDashboard}>
+          <ProjectDetails $isOpen={openDetails.melbourneDashboard}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Key Features:
             </h4>
@@ -540,11 +540,11 @@ const Projects = () => {
             <Tag>Responsive Design</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("lyonville")} isOpen={openDetails.lyonville}>
+          <DetailsButton onClick={() => toggleDetails("lyonville")} $isOpen={openDetails.lyonville}>
             {openDetails.lyonville ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.lyonville}>
+          <ProjectDetails $isOpen={openDetails.lyonville}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Core Features:
             </h4>
@@ -610,11 +610,11 @@ const Projects = () => {
             <Tag>Heuristics</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("splendorAI")} isOpen={openDetails.splendorAI}>
+          <DetailsButton onClick={() => toggleDetails("splendorAI")} $isOpen={openDetails.splendorAI}>
             {openDetails.splendorAI ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.splendorAI}>
+          <ProjectDetails $isOpen={openDetails.splendorAI}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Core Features:
             </h4>
@@ -678,11 +678,11 @@ const Projects = () => {
             <Tag>Collaboration</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("whiteBoard")} isOpen={openDetails.whiteBoard}>
+          <DetailsButton onClick={() => toggleDetails("whiteBoard")} $isOpen={openDetails.whiteBoard}>
             {openDetails.whiteBoard ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.whiteBoard}>
+          <ProjectDetails $isOpen={openDetails.whiteBoard}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Drawing Tools:
             </h4>
@@ -746,13 +746,13 @@ const Projects = () => {
             <Tag>File I/O</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("dictionaryServer")} isOpen={openDetails.dictionaryServer}>
+          <DetailsButton onClick={() => toggleDetails("dictionaryServer")} $isOpen={openDetails.dictionaryServer}>
             {openDetails.dictionaryServer
               ? "< Less Details />"
               : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.dictionaryServer}>
+          <ProjectDetails $isOpen={openDetails.dictionaryServer}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Core Features:
             </h4>
@@ -820,11 +820,11 @@ const Projects = () => {
             <Tag>IPC</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("rpcSystem")} isOpen={openDetails.rpcSystem}>
+          <DetailsButton onClick={() => toggleDetails("rpcSystem")} $isOpen={openDetails.rpcSystem}>
             {openDetails.rpcSystem ? "< Less Details />" : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.rpcSystem}>
+          <ProjectDetails $isOpen={openDetails.rpcSystem}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Core Features:
             </h4>
@@ -888,13 +888,13 @@ const Projects = () => {
             <Tag>IPC</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("processManagement")} isOpen={openDetails.processManagement}>
+          <DetailsButton onClick={() => toggleDetails("processManagement")} $isOpen={openDetails.processManagement}>
             {openDetails.processManagement
               ? "< Less Details />"
               : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.processManagement}>
+          <ProjectDetails $isOpen={openDetails.processManagement}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Scheduling Algorithms:
             </h4>
@@ -958,13 +958,13 @@ const Projects = () => {
             <Tag>Map Editor</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("pacmanTorusVerse")} isOpen={openDetails.pacmanTorusVerse}>
+          <DetailsButton onClick={() => toggleDetails("pacmanTorusVerse")} $isOpen={openDetails.pacmanTorusVerse}>
             {openDetails.pacmanTorusVerse
               ? "< Less Details />"
               : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.pacmanTorusVerse}>
+          <ProjectDetails $isOpen={openDetails.pacmanTorusVerse}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Game Features:
             </h4>
@@ -1026,13 +1026,13 @@ const Projects = () => {
             <Tag>2D RPG</Tag>
           </TagContainer>
 
-          <DetailsButton onClick={() => toggleDetails("shadowDimension")} isOpen={openDetails.shadowDimension}>
+          <DetailsButton onClick={() => toggleDetails("shadowDimension")} $isOpen={openDetails.shadowDimension}>
             {openDetails.shadowDimension
               ? "< Less Details />"
               : "< More Details />"}
           </DetailsButton>
 
-          <ProjectDetails isOpen={openDetails.shadowDimension}>
+          <ProjectDetails $isOpen={openDetails.shadowDimension}>
             <h4 style={{ color: "var(--primary)", marginTop: "1rem" }}>
               Key Features:
             </h4>
