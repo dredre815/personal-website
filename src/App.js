@@ -4,6 +4,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './styles/ThemeContext';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Research from './pages/Research';
 import Projects from './pages/Projects';
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <ErrorBoundary>
           <GlobalStyles />
+          <ScrollToTop />
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
