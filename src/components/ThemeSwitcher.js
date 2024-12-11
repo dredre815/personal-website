@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../styles/ThemeContext';
 
@@ -16,34 +16,54 @@ const ThemeButton = styled.button`
   padding: 0;
   border-radius: 50%;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 0;
+  }
 
   &:hover {
-    background: var(--button-hover);
+    color: var(--background);
     transform: rotate(360deg);
+    
+    &:before {
+      width: 150%;
+      height: 150%;
+    }
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    background: var(--primary);
+    color: var(--background);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: scale(1.1) rotate(360deg);
+    }
   }
 `;
 
 const ThemeSwitcher = () => {
   const { themePreference, setThemePreference } = useTheme();
-
-  useEffect(() => {
-    // Check if it's mobile
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (isMobile) {
-      setThemePreference('system');
-    }
-
-    // Listen for window resize
-    const handleResize = () => {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      if (isMobile) {
-        setThemePreference('system');
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [setThemePreference]);
 
   const cycleTheme = () => {
     const themeOrder = ['system', 'light', 'dark'];
@@ -69,7 +89,7 @@ const ThemeSwitcher = () => {
       aria-label="Toggle theme"
       title={`Current theme: ${themePreference}`}
     >
-      {getThemeIcon()}
+      <span>{getThemeIcon()}</span>
     </ThemeButton>
   );
 };

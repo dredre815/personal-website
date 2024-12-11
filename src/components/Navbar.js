@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const Nav = styled.nav`
@@ -22,6 +22,7 @@ const Nav = styled.nav`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
+  z-index: 1001;
 `;
 
 const Logo = styled(Link)`
@@ -59,17 +60,20 @@ const NavLinks = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    display: ${props => props.$isOpen ? 'flex' : 'none'};
+    position: fixed;
+    top: 0;
+    right: ${props => props.$isOpen ? '0' : '-100%'};
+    height: 100vh;
+    width: 75%;
+    background: ${props => props.theme.researchCardBackground};
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--nav-background);
-    padding: 1rem;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+    transition: right 0.3s ease;
+    box-shadow: ${props => props.$isOpen ? '-5px 0 15px rgba(0, 0, 0, 0.1)' : 'none'};
     z-index: 1000;
+    backdrop-filter: blur(10px);
   }
 `;
 
@@ -78,7 +82,7 @@ const NavLink = styled(Link)`
   padding: 0.5rem;
   font-size: 1.3rem;
   color: ${props => props.theme.background === '#000000' ? '#ffffff' : props.theme.researchCardTitle};
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   
   &:before {
     content: '>';
@@ -101,20 +105,44 @@ const NavLink = styled(Link)`
   }
 
   @media (max-width: 768px) {
+    font-size: 1.5rem;
+    padding: 1rem;
     width: 100%;
     text-align: center;
-    padding: 0.8rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
-
-    &:last-child {
-      border-bottom: none;
+    
+    &:before {
+      display: none;
+    }
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    
+    &:hover:after,
+    &.active:after {
+      width: 50%;
     }
   }
 `;
 
 const ThemeSwitcherWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
   @media (max-width: 768px) {
-    display: none;
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    justify-content: center;
   }
 `;
 
@@ -126,13 +154,56 @@ const MenuButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
-
-  &:hover {
-    color: var(--primary);
-  }
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  position: relative;
 
   @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      
+      &:first-child {
+        transform: ${props => props.$isOpen ? 'rotate(45deg) translate(6px, 6px)' : 'rotate(0)'};
+      }
+      
+      &:nth-child(2) {
+        opacity: ${props => props.$isOpen ? '0' : '1'};
+      }
+      
+      &:last-child {
+        transform: ${props => props.$isOpen ? 'rotate(-45deg) translate(6px, -6px)' : 'rotate(0)'};
+      }
+    }
+  }
+`;
+
+const Overlay = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    opacity: ${props => props.$isOpen ? '1' : '0'};
+    visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+    transition: all 0.3s ease;
+    z-index: 999;
   }
 `;
 
@@ -144,14 +215,29 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  // 防止菜单打开时页面滚动
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
     <Nav>
       <LogoContainer>
         <Logo to="/" onClick={closeMenu}>Zijun Zhang</Logo>
       </LogoContainer>
-      <MenuButton onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? '×' : '☰'}
+      <MenuButton onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+        <span></span>
+        <span></span>
+        <span></span>
       </MenuButton>
+      <Overlay $isOpen={isOpen} onClick={closeMenu} />
       <NavLinks $isOpen={isOpen}>
         <NavLink 
           to="/" 
