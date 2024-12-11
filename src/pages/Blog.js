@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const BlogContainer = styled.div`
   max-width: 1200px;
@@ -178,16 +179,65 @@ const BlogExcerpt = styled.p`
   color: ${props => props.theme.researchCardText};
 `;
 
-const ReadMoreLink = styled.div`
-  color: ${props => props.theme.researchCardHighlight};
-  margin-top: 1rem;
-  font-size: 0.9rem;
+const ReadMoreButton = styled.button`
+  background: none;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  
-  &:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  font-family: 'Courier New', monospace;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--primary);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: -1;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: var(--background);
+      &:before {
+        width: 300%;
+        height: 300%;
+      }
+    }
+  }
+
+  &:active {
+    color: var(--background);
+    &:before {
+      width: 300%;
+      height: 300%;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (hover: none) {
+    &:focus {
+      background: none;
+      color: var(--primary);
+      &:before {
+        width: 0;
+        height: 0;
+      }
+    }
   }
 `;
 
@@ -220,35 +270,21 @@ const Header = styled.div`
   }
 `;
 
-const BackButton = styled.button`
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: ${props => props.theme.researchCardBackground};
-  border: 1px solid ${props => props.theme.researchCardHighlight};
-  color: ${props => props.theme.researchCardHighlight};
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+const BlogNavigation = styled.div`
+  margin-bottom: 2rem;
+  color: ${props => props.theme.researchCardSecondary};
   font-family: 'Courier New', monospace;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  backdrop-filter: blur(5px);
-  z-index: 100;
-  box-shadow: ${props => props.theme.researchCardShadow};
+  cursor: pointer;
   
   &:hover {
-    background: ${props => props.theme.researchCardHighlight};
-    color: ${props => props.theme.researchCardBackground};
-    transform: scale(1.05);
-    box-shadow: ${props => props.theme.researchCardHoverShadow};
+    color: var(--primary);
   }
+`;
 
-  @media (max-width: 768px) {
-    bottom: 1rem;
-    right: 1rem;
-  }
+const BlogNavigationBottom = styled(BlogNavigation)`
+  margin-top: 3rem;
+  margin-bottom: 0;
+  display: block;
 `;
 
 const ReadingTime = styled.span`
@@ -259,29 +295,6 @@ const ReadingTime = styled.span`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-`;
-
-const TagContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-`;
-
-const Tag = styled.span`
-  background: rgba(0, 255, 0, 0.1);
-  color: var(--primary);
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--primary);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--primary);
-    color: var(--background);
-    transform: translateY(-2px);
-  }
 `;
 
 const BlogGrid = styled.div`
@@ -298,14 +311,15 @@ const BlogCounter = styled.div`
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   font-weight: bold;
-  opacity: 1;
-  text-shadow: ${props => props.theme.background === '#000000' ? '0 0 8px var(--primary)' : 'none'};
+  opacity: 0.7;
 `;
 
 const Blog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [blogContent, setBlogContent] = useState('');
+  const { slug } = useParams();
+  const navigate = useNavigate();
   const blogRefs = useRef({});
   
   useEffect(() => {
@@ -319,6 +333,7 @@ const Blog = () => {
           "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
         readingTime: 12,
         filename: "blog3.md",
+        slug: "llms-blockchain-security"
       },
       {
         id: 2,
@@ -328,6 +343,7 @@ const Blog = () => {
           "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
         readingTime: 10,
         filename: "blog2.md",
+        slug: "what-is-ethereum"
       },
       {
         id: 1,
@@ -337,12 +353,25 @@ const Blog = () => {
           "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
         readingTime: 8,
         filename: "blog1.md",
-      },
+        slug: "what-is-bitcoin"
+      }
     ];
-    // Sort blogs by date in descending order (newest first)
+    
     const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
     setBlogs(sortedBlogs);
-  }, []);
+
+    // If there's a slug in the URL, find and select the corresponding blog
+    if (slug) {
+      const matchingBlog = sortedBlogs.find(blog => blog.slug === slug);
+      if (matchingBlog) {
+        setSelectedBlog(matchingBlog);
+      } else {
+        navigate('/blog'); // Redirect to blog list if slug is invalid
+      }
+    } else {
+      setSelectedBlog(null);
+    }
+  }, [slug, navigate]);
 
   useEffect(() => {
     if (selectedBlog) {
@@ -355,62 +384,37 @@ const Blog = () => {
 
   const handleBack = () => {
     const currentBlogId = selectedBlog.id;
-    setSelectedBlog(null);
-    setBlogContent('');
+    navigate('/blog');
     
-    // Wait for the blog list to render before scrolling
     setTimeout(() => {
       if (blogRefs.current[currentBlogId]) {
-        blogRefs.current[currentBlogId].scrollIntoView({ 
+        blogRefs.current[currentBlogId].scrollIntoView({
           behavior: 'smooth',
           block: 'center'
         });
       }
-    }, 0);
+    }, 100);
   };
 
   if (selectedBlog) {
-    const blogTags = {
-      3: [
-        "Blockchain Security",
-        "LLMs",
-        "Smart Contracts",
-        "AI in Blockchain",
-        "DeFi",
-      ],
-      2: [
-        "Ethereum",
-        "Smart Contracts",
-        "DeFi",
-        "NFTs",
-        "DAOs",
-      ],
-      1: [
-        "Bitcoin",
-        "Blockchain",
-        "Digital Currency",
-        "Peer-to-Peer",
-        "Mining",
-      ],
-    };
-
     return (
       <BlogContainer>
         <BlogPost>
+          <BlogNavigation onClick={handleBack}>
+            ← Back to Blog List
+          </BlogNavigation>
           <BlogTitle>{selectedBlog.title}</BlogTitle>
           <BlogDate>{selectedBlog.date}</BlogDate>
-          <TagContainer>
-            {blogTags[selectedBlog.id].map((tag, index) => (
-              <Tag key={index}>{tag}</Tag>
-            ))}
-          </TagContainer>
+          <ReadingTime>
+            📚 {selectedBlog.readingTime} min read
+          </ReadingTime>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {blogContent}
           </ReactMarkdown>
+          <BlogNavigationBottom onClick={handleBack}>
+            ← Back to Blog List
+          </BlogNavigationBottom>
         </BlogPost>
-        <BackButton onClick={handleBack}>
-          ← Back to Blog List
-        </BackButton>
       </BlogContainer>
     );
   }
@@ -426,19 +430,23 @@ const Blog = () => {
       </Header>
       <BlogGrid>
         {blogs.map((blog, index) => (
-          <BlogCard 
-            key={blog.id} 
-            onClick={() => setSelectedBlog(blog)}
-            ref={el => blogRefs.current[blog.id] = el}
+          <BlogCard
+            key={blog.id}
+            ref={(el) => (blogRefs.current[blog.id] = el)}
           >
-            <BlogCounter>
-              Blog {index + 1}/{blogs.length}
-            </BlogCounter>
+            <BlogCounter>Blog {index + 1}/{blogs.length}</BlogCounter>
             <BlogTitle>{blog.title}</BlogTitle>
             <BlogDate>{blog.date}</BlogDate>
             <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
-            <ReadingTime>{blog.readingTime} min read</ReadingTime>
-            <ReadMoreLink>Read More →</ReadMoreLink>
+            <ReadingTime>📚 {blog.readingTime} min read</ReadingTime>
+            <Link 
+              to={`/blog/${blog.slug}`} 
+              style={{ textDecoration: 'none' }}
+            >
+              <ReadMoreButton>
+                {"< Read More />"}
+              </ReadMoreButton>
+            </Link>
           </BlogCard>
         ))}
       </BlogGrid>

@@ -15,7 +15,7 @@ const CVHeader = styled.div`
   margin-bottom: 3rem;
   
   h1 {
-    color: ${props => props.theme.researchCardTitle};
+    color: var(--primary);
     font-size: 2.5rem;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
@@ -26,7 +26,7 @@ const CVHeader = styled.div`
       font-size: 1rem;
       opacity: 0.7;
       margin-bottom: 0.5rem;
-      color: ${props => props.theme.researchCardSecondary};
+      color: var(--primary);
     }
     
     @media (max-width: 768px) {

@@ -12,6 +12,25 @@ const routes = [
   { path: '/blog', changefreq: 'weekly', priority: '0.6' },
 ];
 
+// Define blog posts
+const blogPosts = [
+  { 
+    slug: 'llms-blockchain-security',
+    changefreq: 'monthly',
+    priority: '0.6'
+  },
+  { 
+    slug: 'what-is-ethereum',
+    changefreq: 'monthly',
+    priority: '0.6'
+  },
+  { 
+    slug: 'what-is-bitcoin',
+    changefreq: 'monthly',
+    priority: '0.6'
+  }
+];
+
 // Generate the current date, format: DD-MM-YYYY
 const getCurrentDate = () => {
   const date = new Date();
@@ -25,12 +44,23 @@ const generateSitemapXml = () => {
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
   
+  // Add main routes
   routes.forEach(route => {
     xml += '  <url>\n';
     xml += `    <loc>${BASE_URL}${route.path}</loc>\n`;
     xml += `    <lastmod>${currentDate}</lastmod>\n`;
     xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
     xml += `    <priority>${route.priority}</priority>\n`;
+    xml += '  </url>\n';
+  });
+
+  // Add blog posts
+  blogPosts.forEach(post => {
+    xml += '  <url>\n';
+    xml += `    <loc>${BASE_URL}/blog/${post.slug}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>${post.changefreq}</changefreq>\n`;
+    xml += `    <priority>${post.priority}</priority>\n`;
     xml += '  </url>\n';
   });
   
