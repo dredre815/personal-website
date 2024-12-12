@@ -13,24 +13,24 @@ const routes = [
   { path: '/blog', file: 'pages/Blog.js', changefreq: 'weekly', priority: '0.6' },
 ];
 
-// Define blog posts
+// Define blog posts with their publish dates
 const blogPosts = [
   { 
     slug: 'llms-blockchain-security',
-    file: 'pages/blog/llms-blockchain-security.js',
-    changefreq: 'monthly',
+    publishDate: '2024-11-17T11:30:00.000Z',
+    changefreq: 'yearly',
     priority: '0.6'
   },
   { 
     slug: 'what-is-ethereum',
-    file: 'pages/blog/what-is-ethereum.js',
-    changefreq: 'monthly',
+    publishDate: '2024-11-14T13:41:00.000Z',
+    changefreq: 'yearly',
     priority: '0.6'
   },
   { 
     slug: 'what-is-bitcoin',
-    file: 'pages/blog/what-is-bitcoin.js',
-    changefreq: 'monthly',
+    publishDate: '2024-11-09T08:30:00.000Z',
+    changefreq: 'yearly',
     priority: '0.6'
   }
 ];
@@ -67,12 +67,11 @@ const generateSitemapXml = () => {
     xml += '  </url>\n';
   });
 
-  // Add blog posts
+  // Add blog posts with their fixed publish dates
   blogPosts.forEach(post => {
-    const lastmod = getLastModifiedDate(post.file);
     xml += '  <url>\n';
     xml += `    <loc>${BASE_URL}/blog/${post.slug}</loc>\n`;
-    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <lastmod>${post.publishDate}</lastmod>\n`;
     xml += `    <changefreq>${post.changefreq}</changefreq>\n`;
     xml += `    <priority>${post.priority}</priority>\n`;
     xml += '  </url>\n';
