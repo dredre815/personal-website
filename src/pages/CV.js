@@ -181,7 +181,7 @@ const CV = () => {
           📄 The story of how I turned caffeine into software solutions!
           <br />
           <br />
-          Last updated: 23/11/2024
+          Last updated: 24/02/2025
         </div>
         <ButtonContainer>
           <ActionButton href="/CV.pdf" download>
