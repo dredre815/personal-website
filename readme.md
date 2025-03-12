@@ -86,6 +86,6 @@ npm start
 
 This project is open source and available under the [MIT License](LICENSE).
 
-Copyright © 2024 Zijun Zhang
+Copyright © 2025 Zijun Zhang
 
 Feel free to clone and modify this project for your own personal use. If you do use this project as a template, please give appropriate credit by linking back to this repository and mentioning the original author.
