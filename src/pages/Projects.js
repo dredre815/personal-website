@@ -1012,7 +1012,7 @@ const Projects = () => {
           <ProjectCounter>
             Project {11}/{totalProjects}
           </ProjectCounter>
-          <ProjectTitle>ShadowDimension</ProjectTitle>
+          <ProjectTitle>Shadow Dimension</ProjectTitle>
           <ProjectDescription>
             A 2D fantasy role-playing game where players control Fae, a
             character on a mission to save her father and hometown from evil

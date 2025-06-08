@@ -326,47 +326,27 @@ const Research = () => {
 
   const researchProjects = [
     {
-      id: "blockchain",
-      title: "Enhancing Blockchain Security with LLMs",
-      date: "November 2024",
-      description: "Investigating the integration of Large Language Models (LLMs) with blockchain security mechanisms to create more robust and intelligent security tools.",
-      tags: ["Blockchain", "LLMs", "Smart Contracts", "Security Analytics", "GPT Models"],
+      id: "unlearning",
+      title: "Black-Box Inversion Risks of Unlearning in Large Language Models",
+      date: "December 2024",
+      description:
+        "This research investigates a critical paradox in AI privacy: while 'machine unlearning' aims to make Large Language Models (LLMs) forget sensitive data, the process itself may create new vulnerabilities. We explore whether the act of unlearning leaves behind detectable artifacts, allowing an attacker to discover what information was removed. The project designs and evaluates a 'black-box unlearning inversion attack' to test this hypothesis.",
+      tags: ["LLMs", "Machine Unlearning", "Privacy", "Security", "AI Safety"],
       details: {
         focus: [
-          "Automated vulnerability detection in smart contracts using GPT-based models",
-          "Development of intelligent security assessment frameworks",
-          "Implementation of NLP-based security audit automation",
-          "Pattern recognition in blockchain security threats"
+          "Systematically evaluating whether current unlearning methods (GA, DPO, NPO, RT) inadvertently leak information about the data they aim to forget. ",
+          "Determining if an attacker with only black-box query access can reliably identify the specific subject targeted for unlearning by analyzing changes in model outputs. ",
+          "Comparing the vulnerability levels across different unlearning techniques and LLM architectures (LLaMA3-8B and Phi-3-Mini). ",
+          "Quantifying the success rate of the inversion attack to establish a clear measure of the privacy risk associated with each unlearning method. ",
         ],
         methodologies: [
-          "Integration of LLMs with blockchain security mechanisms",
-          "Development of custom security assessment tools",
-          "Implementation of automated vulnerability detection systems",
-          "Analysis of smart contract security patterns"
-        ]
-      }
-    },
-    {
-      id: "adversarial",
-      title: "Adversarial Machine Learning",
-      date: "September 2024",
-      description: "Exploring the robustness of machine learning models against adversarial attacks and developing effective defense mechanisms.",
-      tags: ["PyTorch", "CNN", "LSTM", "Deep Learning", "Security"],
-      details: {
-        areas: [
-          "Development and analysis of adversarial examples for neural networks",
-          "Implementation of novel defense strategies against various attack vectors",
-          "Comprehensive evaluation of model vulnerabilities across architectures",
-          "Quantitative impact analysis of adversarial perturbations"
+          "Developing a novel black-box attack procedure where an original model and an unlearned model are queried to identify significant differences in their responses. ",
+          "Utilizing the Real-World Knowledge Unlearning (RWKU) benchmark to simulate realistic scenarios of forgetting factual information about public figures. ",
+          "Crafting specific 'probe queries' (both question-answer and fill-in-the-blank) to test for knowledge degradation in a controlled manner. ",
+          "Employing a powerful reasoning LLM (Gemini 2.5 Pro) as an automated 'AI judge' to analyze the nuanced differences in model outputs and infer the unlearning target. ",
         ],
-        approach: [
-          "Systematic experimentation with CNN and LSTM models",
-          "Implementation of various adversarial attack methods",
-          "Development of robust defense mechanisms",
-          "Quantitative analysis of model vulnerability patterns"
-        ]
-      }
-    }
+      },
+    },
   ];
 
   const sortedProjects = [...researchProjects].sort((a, b) => {

@@ -130,60 +130,68 @@ const InteractiveTimeline = () => {
   const events = [
     {
       id: 1,
-      date: 'March 2021',
-      title: 'Started University Journey',
-      content: 'Enrolled in Bachelor of Science at the University of Melbourne, majoring in Computing and Software Systems.',
-      side: 'left'
+      date: "March 2021",
+      title: "Started University Journey",
+      content:
+        "Enrolled in Bachelor of Science at the University of Melbourne, majoring in Computing and Software Systems.",
+      side: "left",
     },
     {
       id: 2,
-      date: 'June 2022',
-      title: 'Blockchain Enlightenment',
-      content: 'First exposure to blockchain technology through reading the Bitcoin whitepaper, which sparked my interest in decentralized systems.',
-      side: 'right'
+      date: "June 2022",
+      title: "Blockchain Enlightenment",
+      content:
+        "First exposure to blockchain technology through reading the Bitcoin whitepaper, which sparked my interest in decentralized systems.",
+      side: "right",
     },
     {
       id: 3,
-      date: 'December 2022',
-      title: 'First Industry Experience',
-      content: 'Joined ICBC Melbourne Branch as an Information Security intern, gaining practical experience in banking security.',
-      side: 'left'
+      date: "December 2023",
+      title: "First Industry Experience",
+      content:
+        "Joined ICBC Melbourne Branch as an Information Security intern, gaining practical experience in banking security.",
+      side: "left",
     },
     {
       id: 4,
-      date: 'October 2023',
-      title: 'First Full-Stack Project',
-      content: 'Developed and deployed a comprehensive website for the Lyonville region of Victoria, marking my first full-stack development project.',
-      side: 'right'
+      date: "March 2024",
+      title: "Academic Milestone",
+      content:
+        "Completed Bachelor's degree and continued the academic journey by enrolling in Master of Computer Science at the University of Melbourne.",
+      side: "left",
     },
     {
       id: 5,
-      date: 'March 2024',
-      title: 'Academic Milestone',
-      content: 'Completed Bachelor\'s degree and continued the academic journey by enrolling in Master of Computer Science at the University of Melbourne.',
-      side: 'left'
+      date: "July 2024",
+      title: "Blockchain Security Focus",
+      content:
+        "Started blockchain development journey with WTF Academy while simultaneously studying blockchain security with SlowMist.",
+      side: "right",
     },
     {
       id: 6,
-      date: 'July 2024',
-      title: 'Blockchain Security Focus',
-      content: 'Started blockchain development journey with WTF Academy while simultaneously studying blockchain security with SlowMist.',
-      side: 'right'
+      date: "December 2024",
+      title: "AI Security Research",
+      content:
+        "Began specializing in AI for Security, with a particular focus on machine unlearning.",
+      side: "left",
     },
     {
       id: 7,
-      date: 'September 2024',
-      title: 'AI Security Research',
-      content: 'Began specializing in AI for Security, with a particular focus on adversarial machine learning.',
-      side: 'left'
+      date: "May 2025",
+      title: "Software Engineering Career",
+      content:
+        "Joined the Software Engineering team at Techman Launch Pty Ltd, starting building full-stack applications.",
+      side: "right",
     },
     {
       id: 8,
-      date: 'Beyond',
-      title: 'The Adventure Unfolds',
-      content: 'Every end is just a new beginning. Excited to push the boundaries where blockchain meets AI security, creating safer digital landscapes for tomorrow.',
-      side: 'right'
-    }
+      date: "Beyond",
+      title: "The Adventure Unfolds",
+      content:
+        "Every end is just a new beginning. Excited to push the boundaries where blockchain meets AI security, creating safer digital landscapes for tomorrow.",
+      side: "right",
+    },
   ];
 
   useEffect(() => {
