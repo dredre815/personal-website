@@ -158,7 +158,7 @@ const InteractiveTimeline = () => {
       title: "Academic Milestone",
       content:
         "Completed Bachelor's degree and continued the academic journey by enrolling in Master of Computer Science at the University of Melbourne.",
-      side: "left",
+      side: "right",
     },
     {
       id: 5,
@@ -166,7 +166,7 @@ const InteractiveTimeline = () => {
       title: "Blockchain Security Focus",
       content:
         "Started blockchain development journey with WTF Academy while simultaneously studying blockchain security with SlowMist.",
-      side: "right",
+      side: "left",
     },
     {
       id: 6,
@@ -174,7 +174,7 @@ const InteractiveTimeline = () => {
       title: "AI Security Research",
       content:
         "Began specializing in AI for Security, with a particular focus on machine unlearning.",
-      side: "left",
+      side: "right",
     },
     {
       id: 7,
@@ -182,7 +182,7 @@ const InteractiveTimeline = () => {
       title: "Software Engineering Career",
       content:
         "Joined the Software Engineering team at Techman Launch Pty Ltd, starting building full-stack applications.",
-      side: "right",
+      side: "left",
     },
     {
       id: 8,

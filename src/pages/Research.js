@@ -327,7 +327,7 @@ const Research = () => {
   const researchProjects = [
     {
       id: "unlearning",
-      title: "Black-Box Inversion Risks of Unlearning in Large Language Models",
+      title: "Black-Box Inversion of Unlearning in Large Language Models",
       date: "December 2024",
       description:
         "This research investigates a critical paradox in AI privacy: while 'machine unlearning' aims to make Large Language Models (LLMs) forget sensitive data, the process itself may create new vulnerabilities. We explore whether the act of unlearning leaves behind detectable artifacts, allowing an attacker to discover what information was removed. The project designs and evaluates a 'black-box unlearning inversion attack' to test this hypothesis.",
