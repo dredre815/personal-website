@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
-import InteractiveTimeline from '../components/InteractiveTimeline';
+import NeuralNetworkPlayground from '../components/NeuralNetworkPlayground';
 
 const HomeContainer = styled.div`
   .typing-text {
@@ -125,6 +125,49 @@ const HomeContainer = styled.div`
     font-size: 1.2rem;
     margin-bottom: 2rem;
     color: var(--secondary);
+    white-space: pre-line;
+  }
+
+  .transition-text {
+    font-size: 1.3rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    padding: 1.2rem 1.5rem;
+    background: linear-gradient(135deg, 
+      ${props => props.theme.timelineEventBackground}40,
+      ${props => props.theme.primary}20);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    font-weight: 500;
+    font-style: italic;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s ease-in-out infinite;
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translateX(0);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      50% {
+        transform: translateX(5px);
+        box-shadow: 0 6px 20px ${props => props.theme.primary}30;
+      }
+    }
+  }
+
+  .supervisor-link {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: 600;
+
+    &:hover {
+      border-bottom-color: var(--primary);
+      text-shadow: 0 0 8px ${props => props.theme.primary}80;
+    }
   }
 
   .animate-on-scroll {
@@ -147,16 +190,18 @@ const Home = () => {
   const sections = [
     {
       title: "$ whoami",
-      subtitle: 'System.out.println("Just your average code poet with a bug-fixing addiction");',
+      subtitle: 'System.out.println("PhD student by day, bug whisperer by night");',
       content: [
-        "🤖 Greetings, humans and bots! I'm your friendly neighborhood code wizard, currently mastering the dark arts of Computer Science at the University of Melbourne.",
-        "🎮 When I'm not trying to convince my compiler that my code is actually working, I'm diving deep into the rabbit holes of AI (teaching machines to be as confused as I am), Security (because who doesn't love staying up all night paranoid about cyber threats?), and Blockchain (still explaining to my mom that no, I'm not mining Bitcoin in the basement).",
-        "🚀 Think of me as a digital explorer with a keyboard as my compass and ChatGPT as my best friend. Currently seeking opportunities to turn coffee into code and bugs into features!"
-      ]
+        "🤖 Greetings, humans and bots! I'm a PhD student at the University of Melbourne, diving deep into the fascinating (and occasionally terrifying) world of Trustworthy ML/AI. My research focuses on making AI systems that won't plot world domination... hopefully.",
+        "🎓 Under the wise guidance of my supervisors A/Prof Xingliang Yuan and Dr Shangqi Lai, I'm exploring how to make machine learning models more secure, private, and trustworthy. Think of it as teaching AI to be a good citizen of the digital world!",
+        "🧠 When I'm not debugging neural networks or reading papers at 2 AM, you'll find me experimenting with new security techniques, building cool visualizations (like the one below), and occasionally questioning my life choices when my model refuses to converge.",
+        "🚀 Fun fact: I believe the key to solving AI safety lies somewhere between rigorous mathematics, creative engineering, and an unhealthy amount of caffeine. Currently on a quest to make AI systems that even my paranoid security researcher friends would trust!"
+      ],
+      transition: "Speaking of neural networks... let me show you what I've been playing with! 👇"
     },
     {
-      title: "$ history | grep \"plot_twist\"",
-      subtitle: 'Warning: This timeline contains traces of caffeine, determination, and occasional moments of "It works! But why?" 🎢'
+      title: "$ ./visualize_nn.sh",
+      subtitle: 'Initializing neural network visualization... \nClick neurons to trigger activation | Drag to paint signals | Right-click for chain reactions 🧠✨'
     },
     {
       title: "$ ping -c 1 marshall",
@@ -230,16 +275,55 @@ const Home = () => {
           <h2 className="section-title">{sections[0].title}</h2>
           <div className="section-subtitle">{sections[0].subtitle}</div>
           <div className="intro">
-            {sections[0].content.map((paragraph, pIndex) => (
-              <p key={pIndex}>{paragraph}</p>
-            ))}
+            {sections[0].content.map((paragraph, pIndex) => {
+              // Special handling for the paragraph with supervisor names
+              if (paragraph.includes('A/Prof Xingliang Yuan') && paragraph.includes('Dr Shangqi Lai')) {
+                const parts = paragraph.split(/(\bA\/Prof Xingliang Yuan\b|\bDr Shangqi Lai\b)/);
+                return (
+                  <p key={pIndex}>
+                    {parts.map((part, idx) => {
+                      if (part === 'A/Prof Xingliang Yuan') {
+                        return (
+                          <a
+                            key={idx}
+                            href="https://xyuancs.github.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="supervisor-link"
+                          >
+                            {part}
+                          </a>
+                        );
+                      } else if (part === 'Dr Shangqi Lai') {
+                        return (
+                          <a
+                            key={idx}
+                            href="https://shangqi-lai.github.io"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="supervisor-link"
+                          >
+                            {part}
+                          </a>
+                        );
+                      }
+                      return <span key={idx}>{part}</span>;
+                    })}
+                  </p>
+                );
+              }
+              return <p key={pIndex}>{paragraph}</p>;
+            })}
           </div>
+          {sections[0].transition && (
+            <div className="transition-text">{sections[0].transition}</div>
+          )}
         </div>
 
         <div className="animate-on-scroll">
           <h2 className="section-title">{sections[1].title}</h2>
           <div className="section-subtitle">{sections[1].subtitle}</div>
-          <InteractiveTimeline />
+          <NeuralNetworkPlayground />
         </div>
 
         <div className="animate-on-scroll">

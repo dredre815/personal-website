@@ -87,8 +87,17 @@ if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
 }
 
-// Write the sitemap.xml file
+// Generate the sitemap content
 const sitemap = generateSitemapXml();
+
+// Write the sitemap.xml file to public directory (for source control)
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
 
-console.log('Sitemap generated successfully!'); 
+// Also write to build directory if it exists (for deployment)
+const buildDir = path.join(__dirname, '../build');
+if (fs.existsSync(buildDir)) {
+  fs.writeFileSync(path.join(buildDir, 'sitemap.xml'), sitemap);
+  console.log('Sitemap generated successfully in both public/ and build/ directories!');
+} else {
+  console.log('Sitemap generated successfully in public/ directory!');
+} 
