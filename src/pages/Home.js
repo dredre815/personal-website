@@ -82,15 +82,115 @@ const HomeContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    color: var(--primary);
 
     @media (max-width: 768px) {
       justify-content: center;
+    }
+
+    /* Glitch effect layers */
+    &::before,
+    &::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &::before {
+      color: #ff00ff;
+      z-index: 1;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    &::after {
+      color: #00ffff;
+      z-index: 2;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     }
 
     &:hover {
       background: var(--primary);
       color: var(--background);
       transform: translateY(-3px);
+      box-shadow: 0 4px 15px ${props => props.theme.primary}50;
+      animation: glitchShake 0.3s ease;
+
+      &::before {
+        opacity: 0.8;
+        animation: glitchBefore 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+      }
+
+      &::after {
+        opacity: 0.8;
+        animation: glitchAfter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+      }
+    }
+
+    @keyframes glitchShake {
+      0%, 100% {
+        transform: translateY(-3px);
+      }
+      25% {
+        transform: translate(-2px, -3px);
+      }
+      50% {
+        transform: translate(2px, -5px);
+      }
+      75% {
+        transform: translate(-1px, -2px);
+      }
+    }
+
+    @keyframes glitchBefore {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitchAfter {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(2px, -2px);
+      }
+      40% {
+        transform: translate(2px, 2px);
+      }
+      60% {
+        transform: translate(-2px, -2px);
+      }
+      80% {
+        transform: translate(-2px, 2px);
+      }
+      100% {
+        transform: translate(0);
+      }
     }
   }
 
@@ -163,10 +263,44 @@ const HomeContainer = styled.div`
     border-bottom: 2px solid transparent;
     transition: all 0.3s ease;
     font-weight: 600;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '🔗';
+      position: absolute;
+      right: -25px;
+      opacity: 0;
+      transform: translateX(-10px) rotate(-45deg);
+      transition: all 0.4s ease;
+      font-size: 0.9em;
+    }
 
     &:hover {
       border-bottom-color: var(--primary);
       text-shadow: 0 0 8px ${props => props.theme.primary}80;
+      padding-right: 25px;
+      
+      &::after {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+        animation: linkBounce 0.6s ease;
+      }
+    }
+
+    @keyframes linkBounce {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-3px) rotate(-10deg);
+      }
+      50% {
+        transform: translateY(0) rotate(5deg);
+      }
+      75% {
+        transform: translateY(-2px) rotate(-5deg);
+      }
     }
   }
 
@@ -333,21 +467,28 @@ const Home = () => {
             <a
               href="mailto:zijuzhang1@student.unimelb.edu.au"
               className="social-link"
+              data-text='📧 sudo mail -s "Hello!"'
             >
               <span>📧</span> sudo mail -s "Hello!"
             </a>
             <a
               href="https://twitter.com/Romanticism_02"
               className="social-link"
+              data-text='🐦 Tweet.post("Hi!")'
             >
               <span>🐦</span> Tweet.post("Hi!")
             </a>
-            <a href="https://github.com/dredre815" className="social-link">
+            <a 
+              href="https://github.com/dredre815" 
+              className="social-link"
+              data-text='👨‍💻 git pull request'
+            >
               <span>👨‍💻</span> git pull request
             </a>
             <a
               href="https://www.linkedin.com/in/zijunzhang2002/"
               className="social-link"
+              data-text='👤 /connect --professional'
             >
               <span>👤</span> /connect --professional
             </a>
