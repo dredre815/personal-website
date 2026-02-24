@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { useEffect, useRef, useState } from 'react';
-import NeuralNetworkPlayground from '../components/NeuralNetworkPlayground';
+import styled from "styled-components";
+import { useEffect, useRef, useState } from "react";
+import AgentArchitectureExplorer from "../components/AgentArchitectureExplorer";
 
 const HomeContainer = styled.div`
   .typing-text {
@@ -40,7 +40,7 @@ const HomeContainer = styled.div`
 
     p {
       margin-bottom: 1.5rem;
-      
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -56,7 +56,7 @@ const HomeContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     color: var(--primary);
     font-size: 1.2rem;
   }
@@ -122,22 +122,25 @@ const HomeContainer = styled.div`
       background: var(--primary);
       color: var(--background);
       transform: translateY(-3px);
-      box-shadow: 0 4px 15px ${props => props.theme.primary}50;
+      box-shadow: 0 4px 15px ${(props) => props.theme.primary}50;
       animation: glitchShake 0.3s ease;
 
       &::before {
         opacity: 0.8;
-        animation: glitchBefore 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        animation: glitchBefore 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+          infinite;
       }
 
       &::after {
         opacity: 0.8;
-        animation: glitchAfter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+        animation: glitchAfter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse
+          both infinite;
       }
     }
 
     @keyframes glitchShake {
-      0%, 100% {
+      0%,
+      100% {
         transform: translateY(-3px);
       }
       25% {
@@ -198,22 +201,18 @@ const HomeContainer = styled.div`
     color: var(--primary);
     font-size: 2.5rem;
     margin: 2rem 0 1rem;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     position: relative;
     display: inline-block;
-    
+
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -5px;
       left: 0;
       width: 100%;
       height: 2px;
-      background: linear-gradient(
-        to right,
-        var(--primary),
-        transparent
-      );
+      background: linear-gradient(to right, var(--primary), transparent);
     }
 
     @media (max-width: 768px) {
@@ -233,9 +232,11 @@ const HomeContainer = styled.div`
     margin-top: 2.5rem;
     margin-bottom: 0;
     padding: 1.2rem 1.5rem;
-    background: linear-gradient(135deg, 
-      ${props => props.theme.timelineEventBackground}40,
-      ${props => props.theme.primary}20);
+    background: linear-gradient(
+      135deg,
+      ${(props) => props.theme.timelineEventBackground}40,
+      ${(props) => props.theme.primary}20
+    );
     border-left: 4px solid var(--primary);
     border-radius: 8px;
     color: var(--primary);
@@ -246,13 +247,14 @@ const HomeContainer = styled.div`
     animation: pulse 2s ease-in-out infinite;
 
     @keyframes pulse {
-      0%, 100% {
+      0%,
+      100% {
         transform: translateX(0);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
       50% {
         transform: translateX(5px);
-        box-shadow: 0 6px 20px ${props => props.theme.primary}30;
+        box-shadow: 0 6px 20px ${(props) => props.theme.primary}30;
       }
     }
   }
@@ -267,7 +269,7 @@ const HomeContainer = styled.div`
     display: inline-block;
 
     &::after {
-      content: '🔗';
+      content: "🔗";
       position: absolute;
       right: -25px;
       opacity: 0;
@@ -278,9 +280,9 @@ const HomeContainer = styled.div`
 
     &:hover {
       border-bottom-color: var(--primary);
-      text-shadow: 0 0 8px ${props => props.theme.primary}80;
+      text-shadow: 0 0 8px ${(props) => props.theme.primary}80;
       padding-right: 25px;
-      
+
       &::after {
         opacity: 1;
         transform: translateX(0) rotate(0deg);
@@ -289,7 +291,8 @@ const HomeContainer = styled.div`
     }
 
     @keyframes linkBounce {
-      0%, 100% {
+      0%,
+      100% {
         transform: translateY(0) rotate(0deg);
       }
       25% {
@@ -308,7 +311,7 @@ const HomeContainer = styled.div`
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease;
-    
+
     &.visible {
       opacity: 1;
       transform: translateY(0);
@@ -324,23 +327,26 @@ const Home = () => {
   const sections = [
     {
       title: "$ whoami",
-      subtitle: 'System.out.println("PhD student by day, bug whisperer by night");',
+      subtitle:
+        'System.out.println("PhD student by day, bug whisperer by night");',
       content: [
         "🤖 Greetings, humans and bots! I'm a PhD student at the University of Melbourne, diving deep into the fascinating (and occasionally terrifying) world of Trustworthy ML/AI. My research focuses on making AI systems that won't plot world domination... hopefully.",
-        "🎓 Under the wise guidance of my supervisors A/Prof Xingliang Yuan and Dr Shangqi Lai, I'm exploring how to make machine learning models more secure, private, and trustworthy. Think of it as teaching AI to be a good citizen of the digital world!",
-        "🧠 When I'm not debugging neural networks or reading papers at 2 AM, you'll find me experimenting with new security techniques, building cool visualizations (like the one below), and occasionally questioning my life choices when my model refuses to converge.",
-        "🚀 Fun fact: I believe the key to solving AI safety lies somewhere between rigorous mathematics, creative engineering, and an unhealthy amount of caffeine. Currently on a quest to make AI systems that even my paranoid security researcher friends would trust!"
+        "🎓 Under the wise guidance of my supervisor A/Prof Xingliang Yuan, I'm exploring how to make machine learning models more secure, private, and trustworthy. Think of it as teaching AI to be a good citizen of the digital world!",
+        "🧠 When I'm not debugging neural networks or reading papers at 2 AM, you'll find me experimenting with AI agent architectures, exploring trustworthy reasoning systems (like the demo below), and occasionally questioning my life choices when my model refuses to converge.",
+        "🚀 Fun fact: I believe the key to solving AI safety lies somewhere between rigorous mathematics, creative engineering, and an unhealthy amount of caffeine. Currently on a quest to make AI systems that even my paranoid security researcher friends would trust!",
       ],
-      transition: "Speaking of neural networks... let me show you what I've been playing with! 👇"
+      transition: "Speaking of AI agents... let me show you how they think! 👇",
     },
     {
-      title: "$ ./visualize_nn.sh",
-      subtitle: 'Initializing neural network visualization... \nClick neurons to trigger activation | Drag to paint signals | Right-click for chain reactions 🧠✨'
+      title: "$ ./agent_explorer.sh",
+      subtitle:
+        "Initializing AI Agent Architecture Explorer...\nClick modules to learn | Pick a scenario to watch an agent reason step-by-step 🤖🔍",
     },
     {
       title: "$ ping -c 1 marshall",
-      subtitle: '64 bytes from marshall: icmp_seq=1 ttl=42 time=0.42ms (Response: "Let\'s create some digital magic together! 🪄")'
-    }
+      subtitle:
+        '64 bytes from marshall: icmp_seq=1 ttl=42 time=0.42ms (Response: "Let\'s create some digital magic together! 🪄")',
+    },
   ];
 
   useEffect(() => {
@@ -349,10 +355,10 @@ const Home = () => {
     const scrollHint = "Scroll down to explore 👇";
     let i = 0;
     let j = 0;
-    
+
     const textElement = textRef.current;
     const scrollHintElement = scrollHintRef.current;
-    
+
     const typing = setInterval(() => {
       if (textElement) {
         textElement.textContent = text.slice(0, i);
@@ -372,28 +378,28 @@ const Home = () => {
 
     return () => {
       clearInterval(typing);
-      if (textElement) textElement.textContent = '';
-      if (scrollHintElement) scrollHintElement.textContent = '';
+      if (textElement) textElement.textContent = "";
+      if (scrollHintElement) scrollHintElement.textContent = "";
     };
   }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add("visible");
             observer.unobserve(entry.target);
           }
         });
       },
       {
         threshold: window.innerWidth <= 768 ? 0.1 : 0.2,
-        rootMargin: window.innerWidth <= 768 ? '30px' : '0px'
-      }
+        rootMargin: window.innerWidth <= 768 ? "30px" : "0px",
+      },
     );
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
       observer.observe(el);
     });
 
@@ -411,28 +417,16 @@ const Home = () => {
           <div className="intro">
             {sections[0].content.map((paragraph, pIndex) => {
               // Special handling for the paragraph with supervisor names
-              if (paragraph.includes('A/Prof Xingliang Yuan') && paragraph.includes('Dr Shangqi Lai')) {
-                const parts = paragraph.split(/(\bA\/Prof Xingliang Yuan\b|\bDr Shangqi Lai\b)/);
+              if (paragraph.includes("A/Prof Xingliang Yuan")) {
+                const parts = paragraph.split(/(\bA\/Prof Xingliang Yuan\b)/);
                 return (
                   <p key={pIndex}>
                     {parts.map((part, idx) => {
-                      if (part === 'A/Prof Xingliang Yuan') {
+                      if (part === "A/Prof Xingliang Yuan") {
                         return (
                           <a
                             key={idx}
                             href="https://xyuancs.github.io/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="supervisor-link"
-                          >
-                            {part}
-                          </a>
-                        );
-                      } else if (part === 'Dr Shangqi Lai') {
-                        return (
-                          <a
-                            key={idx}
-                            href="https://shangqi-lai.github.io"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="supervisor-link"
@@ -457,7 +451,7 @@ const Home = () => {
         <div className="animate-on-scroll">
           <h2 className="section-title">{sections[1].title}</h2>
           <div className="section-subtitle">{sections[1].subtitle}</div>
-          <NeuralNetworkPlayground />
+          <AgentArchitectureExplorer />
         </div>
 
         <div className="animate-on-scroll">
@@ -478,17 +472,17 @@ const Home = () => {
             >
               <span>🐦</span> Tweet.post("Hi!")
             </a>
-            <a 
-              href="https://github.com/dredre815" 
+            <a
+              href="https://github.com/dredre815"
               className="social-link"
-              data-text='👨‍💻 git pull request'
+              data-text="👨‍💻 git pull request"
             >
               <span>👨‍💻</span> git pull request
             </a>
             <a
               href="https://www.linkedin.com/in/zijunzhang2002/"
               className="social-link"
-              data-text='👤 /connect --professional'
+              data-text="👤 /connect --professional"
             >
               <span>👤</span> /connect --professional
             </a>
