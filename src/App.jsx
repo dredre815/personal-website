@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -15,7 +15,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <ErrorBoundary>
           <GlobalStyles />
           <ScrollToTop />

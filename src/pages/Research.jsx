@@ -329,6 +329,7 @@ const Research = () => {
       id: "unlearning",
       title: "Black-Box Inversion of Unlearning in Large Language Models",
       date: "December 2024",
+      sortDate: "2024-12-01",
       description:
         "This research investigates a critical paradox in AI privacy: while 'machine unlearning' aims to make Large Language Models (LLMs) forget sensitive data, the process itself may create new vulnerabilities. We explore whether the act of unlearning leaves behind detectable artifacts, allowing an attacker to discover what information was removed. The project designs and evaluates a 'black-box unlearning inversion attack' to test this hypothesis.",
       tags: ["LLMs", "Machine Unlearning", "Privacy", "Security", "AI Safety"],
@@ -350,7 +351,7 @@ const Research = () => {
   ];
 
   const sortedProjects = [...researchProjects].sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
+    return new Date(b.sortDate) - new Date(a.sortDate);
   });
 
   return (

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import blogPosts from '../data/blogPosts.json';
 
 const BlogContainer = styled.div`
   max-width: 1200px;
@@ -323,50 +324,15 @@ const Blog = () => {
   const blogRefs = useRef({});
   
   useEffect(() => {
-    // Initialize blogs with your data
-    const fetchedBlogs = [
-      {
-        id: 3,
-        title: "LLMs in Blockchain Security: A Deep Dive",
-        date: "17/11/2024",
-        excerpt: 
-          "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
-        readingTime: 12,
-        filename: "blog3.md",
-        slug: "llms-blockchain-security"
-      },
-      {
-        id: 2,
-        title: "What is Ethereum?",
-        date: "14/11/2024",
-        excerpt: 
-          "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
-        readingTime: 10,
-        filename: "blog2.md",
-        slug: "what-is-ethereum"
-      },
-      {
-        id: 1,
-        title: "What is Bitcoin?",
-        date: "9/11/2024",
-        excerpt:
-          "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
-        readingTime: 8,
-        filename: "blog1.md",
-        slug: "what-is-bitcoin"
-      }
-    ];
-    
-    const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sortedBlogs = [...blogPosts].sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
     setBlogs(sortedBlogs);
 
-    // If there's a slug in the URL, find and select the corresponding blog
     if (slug) {
       const matchingBlog = sortedBlogs.find(blog => blog.slug === slug);
       if (matchingBlog) {
         setSelectedBlog(matchingBlog);
       } else {
-        navigate('/blog'); // Redirect to blog list if slug is invalid
+        navigate('/blog', { replace: true });
       }
     } else {
       setSelectedBlog(null);
@@ -375,8 +341,14 @@ const Blog = () => {
 
   useEffect(() => {
     if (selectedBlog) {
-      fetch(`/${selectedBlog.filename}`)
-        .then(response => response.text())
+      setBlogContent('');
+      fetch(`${import.meta.env.BASE_URL}${selectedBlog.filename}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to load ${selectedBlog.filename}`);
+          }
+          return response.text();
+        })
         .then(text => {
           setBlogContent(text);
           window.scrollTo({
@@ -410,7 +382,7 @@ const Blog = () => {
             ← Back to Blog List
           </BlogNavigation>
           <BlogTitle>{selectedBlog.title}</BlogTitle>
-          <BlogDate>{selectedBlog.date}</BlogDate>
+          <BlogDate>{selectedBlog.displayDate}</BlogDate>
           <ReadingTime>
             📚 {selectedBlog.readingTime} min read
           </ReadingTime>
@@ -442,7 +414,7 @@ const Blog = () => {
           >
             <BlogCounter>Blog {index + 1}/{blogs.length}</BlogCounter>
             <BlogTitle>{blog.title}</BlogTitle>
-            <BlogDate>{blog.date}</BlogDate>
+            <BlogDate>{blog.displayDate}</BlogDate>
             <BlogExcerpt>{blog.excerpt}</BlogExcerpt>
             <ReadingTime>📚 {blog.readingTime} min read</ReadingTime>
             <Link 

@@ -164,6 +164,7 @@ const LoadingContainer = styled.div`
 
 const CV = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const cvUrl = `${import.meta.env.BASE_URL}CV.pdf`;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -184,11 +185,11 @@ const CV = () => {
           Last updated: 24/02/2026
         </div>
         <ButtonContainer>
-          <ActionButton href="/CV.pdf" download>
+          <ActionButton href={cvUrl} download>
             <span>⬇️</span>
             <span style={{ width: "auto" }}>Download CV</span>
           </ActionButton>
-          <ActionButton href="/CV.pdf" target="_blank">
+          <ActionButton href={cvUrl} target="_blank">
             <span>🔍</span>
             <span style={{ width: "auto" }}>View Full Screen</span>
           </ActionButton>
@@ -200,7 +201,7 @@ const CV = () => {
         {isLoading ? (
           <LoadingContainer>Loading CV...</LoadingContainer>
         ) : (
-          <PDFEmbed src="/CV.pdf" type="application/pdf" />
+          <PDFEmbed src={cvUrl} type="application/pdf" />
         )}
       </PreviewContainer>
     </CVContainer>

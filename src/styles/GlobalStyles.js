@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   :root {
     --primary: ${props => props.theme.primary};
+    --secondary: ${props => props.theme.secondary};
     --background: ${props => props.theme.background};
     --text: ${props => props.theme.text};
     --hover: ${props => props.theme.hover};
@@ -166,4 +167,4 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default GlobalStyles; 
+export default GlobalStyles;

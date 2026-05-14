@@ -1,0 +1,38 @@
+[
+  {
+    "id": 3,
+    "title": "LLMs in Blockchain Security: A Deep Dive",
+    "publishDate": "2024-11-17T11:30:00.000Z",
+    "displayDate": "17/11/2024",
+    "excerpt": "Explore how Large Language Models are revolutionizing blockchain security through automated smart contract analysis. Learn about the technical approaches, challenges, and future possibilities in combining AI with blockchain technology to create more secure decentralized systems.",
+    "readingTime": 12,
+    "filename": "blog3.md",
+    "slug": "llms-blockchain-security",
+    "changefreq": "yearly",
+    "priority": "0.6"
+  },
+  {
+    "id": 2,
+    "title": "What is Ethereum?",
+    "publishDate": "2024-11-14T13:41:00.000Z",
+    "displayDate": "14/11/2024",
+    "excerpt": "A comprehensive guide to Ethereum, exploring its evolution from Bitcoin's limitations to becoming a revolutionary platform for smart contracts, DeFi, NFTs, and DAOs. Discover how this 'world computer' is shaping the future of decentralized technology.",
+    "readingTime": 10,
+    "filename": "blog2.md",
+    "slug": "what-is-ethereum",
+    "changefreq": "yearly",
+    "priority": "0.6"
+  },
+  {
+    "id": 1,
+    "title": "What is Bitcoin?",
+    "publishDate": "2024-11-09T08:30:00.000Z",
+    "displayDate": "9/11/2024",
+    "excerpt": "Discover Bitcoin's revolutionary approach to digital payments, exploring how it eliminates intermediaries through blockchain technology and cryptographic proof. Learn about its core concepts, security mechanisms, and potential to transform the future of money.",
+    "readingTime": 8,
+    "filename": "blog1.md",
+    "slug": "what-is-bitcoin",
+    "changefreq": "yearly",
+    "priority": "0.6"
+  }
+]

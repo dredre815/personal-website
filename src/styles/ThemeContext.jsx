@@ -4,6 +4,7 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 export const themes = {
   light: {
     primary: '#1a8917',
+    secondary: '#4a6f47',
     background: '#f8f9fa',
     text: '#2c3e50',
     hover: '#27ae60',
@@ -51,6 +52,7 @@ export const themes = {
   },
   dark: {
     primary: '#00ff00',
+    secondary: '#a0a0a0',
     background: '#000000',
     text: '#ffffff',
     hover: '#32CD32',
@@ -99,37 +101,61 @@ export const themes = {
 };
 
 const ThemeContext = createContext();
+const THEME_STORAGE_KEY = 'themePreference';
+const THEME_OPTIONS = ['system', 'light', 'dark'];
+
+const getSystemTheme = () => {
+  if (typeof window === 'undefined' || !window.matchMedia) {
+    return themes.light;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? themes.dark : themes.light;
+};
+
+const getStoredThemePreference = () => {
+  if (typeof window === 'undefined') {
+    return 'system';
+  }
+
+  try {
+    const storedPreference = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return THEME_OPTIONS.includes(storedPreference) ? storedPreference : 'system';
+  } catch (error) {
+    return 'system';
+  }
+};
+
+const resolveTheme = (themePreference) => {
+  if (themePreference === 'system') {
+    return getSystemTheme();
+  }
+
+  return themePreference === 'dark' ? themes.dark : themes.light;
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [themePreference, setThemePreference] = useState('system');
-
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return systemDark ? themes.dark : themes.light;
-  });
+  const [themePreference, setThemePreference] = useState(getStoredThemePreference);
+  const [currentTheme, setCurrentTheme] = useState(() => resolveTheme(getStoredThemePreference()));
 
   useEffect(() => {
-    const updateTheme = () => {
-      if (themePreference === 'system') {
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setCurrentTheme(systemDark ? themes.dark : themes.light);
-      } else {
-        setCurrentTheme(themePreference === 'dark' ? themes.dark : themes.light);
-      }
-    };
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const updateTheme = () => setCurrentTheme(resolveTheme(themePreference));
 
     updateTheme();
-    localStorage.setItem('themePreference', themePreference);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, themePreference);
+    } catch (error) {
+      // Ignore storage failures so private browsing modes do not break rendering.
+    }
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       if (themePreference === 'system') {
         updateTheme();
       }
     };
 
-    mediaQuery.addListener(handleChange);
-    return () => mediaQuery.removeListener(handleChange);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [themePreference]);
 
   return (

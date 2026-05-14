@@ -42,7 +42,7 @@ A sophisticated, interactive personal website built with React, featuring a term
 - **Styling:** Styled Components
 - **Routing:** React Router v6
 - **Content:** React Markdown with GFM support
-- **Development:** Modern JavaScript (ES6+)
+- **Development:** Vite + modern JavaScript (ES6+)
 - **Deployment:** GitHub Pages
 
 ## Installation
@@ -57,9 +57,9 @@ git clone https://github.com/dredre815/personal-website.git
 cd personal-website
 ```
 
-3. Install dependencies:
+3. Install dependencies from the lockfile:
 ```bash
-npm install
+npm ci
 ```
 
 4. Start the development server:
@@ -67,12 +67,37 @@ npm install
 npm start
 ```
 
+The development server binds to `127.0.0.1` by default and is available at `http://127.0.0.1:5173`.
+
+## Development Commands
+
+```bash
+npm start              # Start the Vite dev server
+npm run build          # Build to /build and regenerate the sitemap
+npm run preview        # Preview the production build locally
+npm test               # Validate blog metadata and sitemap coverage
+npm run deploy         # Build and publish /build to GitHub Pages
+npm run update-site    # Validate, build, commit, push main, and publish the live site
+```
+
+## Publishing Workflow
+
+After making website updates and manually reviewing them locally, run:
+
+```bash
+npm run update-site
+```
+
+The script prompts for a commit message, runs validation, audits high-risk dependency issues, builds the production site, commits the source changes, pushes `main`, and publishes `/build` to GitHub Pages for `www.zijun2002.com`.
+
 ## Project Structure
 
 - `/src/pages/` - Main page components (Home, Projects, Research, Blog, CV)
 - `/src/components/` - Reusable UI components
+- `/src/data/` - Structured content metadata shared by the app and scripts
 - `/public/` - Static assets and blog content
 - `/src/styles/` - Global styles and theme configuration
+- `/scripts/` - Sitemap generation and content validation scripts
 
 ## Author
 

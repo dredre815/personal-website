@@ -1,47 +1,53 @@
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
+const blogPosts = require('../src/data/blogPosts.json');
 
 const BASE_URL = 'https://www.zijun2002.com/#';
+const ROOT_DIR = path.join(__dirname, '..');
 const SRC_DIR = path.join(__dirname, '../src');
 
-// Define the routes and their configurations
 const routes = [
-  { path: '/', file: 'pages/Home.js', changefreq: 'monthly', priority: '1.0' },
-  { path: '/projects', file: 'pages/Projects.js', changefreq: 'weekly', priority: '0.8' },
-  { path: '/research', file: 'pages/Research.js', changefreq: 'monthly', priority: '0.8' },
-  { path: '/cv', file: 'pages/CV.js', changefreq: 'yearly', priority: '0.7' },
-  { path: '/blog', file: 'pages/Blog.js', changefreq: 'weekly', priority: '0.6' },
+  { path: '/', file: 'pages/Home.jsx', changefreq: 'monthly', priority: '1.0' },
+  { path: '/projects', file: 'pages/Projects.jsx', changefreq: 'weekly', priority: '0.8' },
+  { path: '/research', file: 'pages/Research.jsx', changefreq: 'monthly', priority: '0.8' },
+  { path: '/cv', file: 'pages/CV.jsx', changefreq: 'yearly', priority: '0.7' },
+  { path: '/blog', file: 'pages/Blog.jsx', changefreq: 'weekly', priority: '0.6' },
 ];
 
-// Define blog posts with their publish dates
-const blogPosts = [
-  { 
-    slug: 'llms-blockchain-security',
-    publishDate: '2024-11-17T11:30:00.000Z',
-    changefreq: 'yearly',
-    priority: '0.6'
-  },
-  { 
-    slug: 'what-is-ethereum',
-    publishDate: '2024-11-14T13:41:00.000Z',
-    changefreq: 'yearly',
-    priority: '0.6'
-  },
-  { 
-    slug: 'what-is-bitcoin',
-    publishDate: '2024-11-09T08:30:00.000Z',
-    changefreq: 'yearly',
-    priority: '0.6'
+const formatDate = (date) => date.toISOString();
+
+const readGitOutput = (args) => {
+  try {
+    return execFileSync('git', args, {
+      cwd: ROOT_DIR,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+  } catch (error) {
+    return '';
   }
-];
-
-// Format date to ISO 8601 format with timezone
-const formatDate = (date) => {
-  return date.toISOString();
 };
 
-// Get the last modified date of a file
+const hasWorkingTreeChanges = (relativePath) => (
+  readGitOutput(['status', '--porcelain', '--', relativePath]).length > 0
+);
+
+const getGitLastModifiedDate = (relativePath) => {
+  const lastCommitDate = readGitOutput(['log', '-1', '--format=%cI', '--', relativePath]);
+  return lastCommitDate || null;
+};
+
 const getLastModifiedDate = (filePath) => {
+  const relativePath = path.posix.join('src', filePath);
+
+  if (!hasWorkingTreeChanges(relativePath)) {
+    const gitDate = getGitLastModifiedDate(relativePath);
+    if (gitDate) {
+      return gitDate;
+    }
+  }
+
   try {
     const stats = fs.statSync(path.join(SRC_DIR, filePath));
     return formatDate(stats.mtime);
@@ -51,53 +57,65 @@ const getLastModifiedDate = (filePath) => {
   }
 };
 
-// Generate the sitemap XML content
-const generateSitemapXml = () => {
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-  
-  // Add main routes
-  routes.forEach(route => {
-    const lastmod = getLastModifiedDate(route.file);
-    xml += '  <url>\n';
-    xml += `    <loc>${BASE_URL}${route.path}</loc>\n`;
-    xml += `    <lastmod>${lastmod}</lastmod>\n`;
-    xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
-    xml += `    <priority>${route.priority}</priority>\n`;
-    xml += '  </url>\n';
-  });
+const generateUrlEntry = ({ loc, lastmod, changefreq, priority }) => [
+  '  <url>',
+  `    <loc>${loc}</loc>`,
+  `    <lastmod>${lastmod}</lastmod>`,
+  `    <changefreq>${changefreq}</changefreq>`,
+  `    <priority>${priority}</priority>`,
+  '  </url>',
+].join('\n');
 
-  // Add blog posts with their fixed publish dates
-  blogPosts.forEach(post => {
-    xml += '  <url>\n';
-    xml += `    <loc>${BASE_URL}/blog/${post.slug}</loc>\n`;
-    xml += `    <lastmod>${post.publishDate}</lastmod>\n`;
-    xml += `    <changefreq>${post.changefreq}</changefreq>\n`;
-    xml += `    <priority>${post.priority}</priority>\n`;
-    xml += '  </url>\n';
-  });
-  
-  xml += '</urlset>';
-  return xml;
+const generateSitemapXml = () => {
+  const entries = [
+    ...routes.map((route) => generateUrlEntry({
+      loc: `${BASE_URL}${route.path}`,
+      lastmod: getLastModifiedDate(route.file),
+      changefreq: route.changefreq,
+      priority: route.priority,
+    })),
+    ...blogPosts.map((post) => generateUrlEntry({
+      loc: `${BASE_URL}/blog/${post.slug}`,
+      lastmod: post.publishDate,
+      changefreq: post.changefreq,
+      priority: post.priority,
+    })),
+  ];
+
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    entries.join('\n'),
+    '</urlset>',
+  ].join('\n');
 };
 
-// Ensure the public directory exists
-const publicDir = path.join(__dirname, '../public');
-if (!fs.existsSync(publicDir)) {
-  fs.mkdirSync(publicDir, { recursive: true });
+const writeSitemap = () => {
+  const publicDir = path.join(__dirname, '../public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
+  const sitemap = generateSitemapXml();
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+
+  const buildDir = path.join(__dirname, '../build');
+  if (fs.existsSync(buildDir)) {
+    fs.writeFileSync(path.join(buildDir, 'sitemap.xml'), sitemap);
+    console.log('Sitemap generated successfully in both public/ and build/ directories!');
+  } else {
+    console.log('Sitemap generated successfully in public/ directory!');
+  }
+};
+
+if (require.main === module) {
+  writeSitemap();
 }
 
-// Generate the sitemap content
-const sitemap = generateSitemapXml();
-
-// Write the sitemap.xml file to public directory (for source control)
-fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
-
-// Also write to build directory if it exists (for deployment)
-const buildDir = path.join(__dirname, '../build');
-if (fs.existsSync(buildDir)) {
-  fs.writeFileSync(path.join(buildDir, 'sitemap.xml'), sitemap);
-  console.log('Sitemap generated successfully in both public/ and build/ directories!');
-} else {
-  console.log('Sitemap generated successfully in public/ directory!');
-} 
+module.exports = {
+  BASE_URL,
+  blogPosts,
+  generateSitemapXml,
+  routes,
+  writeSitemap,
+};
